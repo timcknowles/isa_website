@@ -33,3 +33,8 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.cssmin.CSSMinFilter',
 ]
 COMPRESS_CSS_HASHING_METHOD = 'content'
+
+AWS_STORAGE_BUCKET_NAME = 'isawebsite'
+AWS_ACCESS_KEY_ID = env['ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = env['SECRET_ACCESS_KEY']
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
