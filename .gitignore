@@ -4,5 +4,4 @@
 /venv/
 /static/
 /media/
-secret_settings.py
 .env
