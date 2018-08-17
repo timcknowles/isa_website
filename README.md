@@ -10,8 +10,9 @@ I have added the necessary code for Heroku deployment.
 To get started:
 
 1. set up a virtualenv
-2. clone or fork the repo
-3. Run
+2. clone the repo: git clone git@github.com:timcknowles/isa_website.git
+3. CD into isa_website
+3. Run the following
 
 Install the requirments:
 pip install -r requirements.txt
@@ -33,4 +34,4 @@ To make git push heroku master work - follow the steps in this guide most of whi
 
 https://wagtail.io/blog/wagtail-heroku-2017/
 
-NB: you will need to load your own ENV variables locally and into a .env file for heroku. 
+NB: you will need to load your own ENV variables locally (for the Django secret key) and into a .env file for heroku (see guide).  The Django secret key will have to be generated manually as this step is usaully done by the wagtail start command.
