@@ -1,37 +1,38 @@
 # ISA website
 
-This is an attempt to migrate the existing ISA website (built using a custom PHP backend to Wagtail). The aim is produce a site that is easier to maintain and handover.
-The flexiblity of Wagtail should allow for bespoke integrations to be achieved where required. 
+This is an attempt to migrate the existing ISA website (built using a custom PHP backend to Wagtail). The aim is to produce a site that is easier to maintain and handover.
+The flexiblity of Wagtail should allow for bespoke integrations to be achieved where required.
 
 
 So far this repo contains a vanilla install of the latest version of wagtail (2.2.1 at the time of writing)
 I have added the necessary code for Heroku deployment.
 
-To get started:
+*To get started:*
 
 1. set up a virtualenv
-2. clone the repo: git clone git@github.com:timcknowles/isa_website.git
-3. CD into isa_website
-3. Run the following
+1. clone the repo: git clone git@github.com:timcknowles/isa_website.git
+1. CD into isa_website
+1. Run the following
 
-Install the requirments:
-pip install -r requirements.txt
+*Install the requirments:*
 
-Create a local postrgres DB:
+`pip install -r requirements.txt`
 
-createdb isa_website
+*Create a local postrgres DB:*
 
-Run the migrations and create a superuser:
+`createdb isa_website`
 
-./manage.py migrate
-./manage.py createsuperuser
+*Run the migrations and create a superuser:*
 
-Check it runs locally
+`./manage.py migrate`
+`./manage.py createsuperuser`
 
-./manage.py runserver
+*Check it runs locally*
 
-To make git push heroku master work - follow the steps in this guide most of which has been done already for you:
+`./manage.py runserver`
+
+To make git push heroku master work - follow the steps in this guide. Most of this will have been done already
 
 https://wagtail.io/blog/wagtail-heroku-2017/
 
-NB: you will need to load your own ENV variables locally (for the Django secret key) and into a .env file for heroku (see guide).  The Django secret key will have to be generated manually as this step is usaully done by the wagtail start command.
+NB: you will need to load your own ENV variables locally (for the Django secret key) and into a .env file for heroku (see guide).  The Django secret key will have to be generated manually as this step is usually done by the wagtail start command.
