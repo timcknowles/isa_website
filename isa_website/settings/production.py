@@ -8,7 +8,7 @@ SECRET_KEY = env['SECRET_KEY']
 
 from .base import *
 
-DEBUG = False
+DEBUG = True
 
 try:
     from .local import *
@@ -41,6 +41,7 @@ AWS_SECRET_ACCESS_KEY = env['SECRET_ACCESS_KEY']
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_HOST = 's3.amazonaws.com'
 S3_USE_SIGV4 = True
+AWS_QUERYSTRING_AUTH = False
 
 
 MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
