@@ -36,3 +36,5 @@ To make git push heroku master work - follow the steps in this guide. Most of th
 https://wagtail.io/blog/wagtail-heroku-2017/
 
 NB: you will need to load your own ENV variables locally (for the Django secret key) and into a .env file for heroku (see guide).  The Django secret key will have to be generated manually as this step is usually done by the wagtail start command.
+
+https://www.miniwebtool.com/django-secret-key-generator/
