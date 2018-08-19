@@ -150,6 +150,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
+
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "isa_website"
@@ -157,8 +158,3 @@ WAGTAIL_SITE_NAME = "isa_website"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
-
-AWS_STORAGE_BUCKET_NAME = 'isawebsite'
-AWS_ACCESS_KEY_ID = 'ACCESS_KEY_ID'
-AWS_SECRET_ACCESS_KEY = 'SECRET_ACCESS_KEY'
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
