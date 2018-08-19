@@ -10,26 +10,26 @@ I have added the necessary code for Heroku deployment.
 *To get started:*
 
 1. set up a virtualenv
-1. clone the repo: git clone git@github.com:timcknowles/isa_website.git
+1. clone the repo: `$ git clone git@github.com:timcknowles/isa_website.git`
 1. CD into isa_website
 1. Run the following
 
 *Install the requirments:*
 
-`pip install -r requirements.txt`
++ `$ pip install -r requirements.txt`
 
 *Create a local postrgres DB:*
 
-`createdb isa_website`
++ `$ createdb isa_website`
 
 *Run the migrations and create a superuser:*
 
-`./manage.py migrate`
-`./manage.py createsuperuser`
++ `$ ./manage.py migrate`
++ `$ ./manage.py createsuperuser`
 
 *Check it runs locally*
 
-`./manage.py runserver`
++ `$ ./manage.py runserver`
 
 To make git push heroku master work - follow the steps in this guide. Most of this will have been done already
 
