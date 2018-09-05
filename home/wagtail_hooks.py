@@ -29,7 +29,7 @@ def do_after_page_create(request, Page):
 
         # return self.post("/events/{0}/".format(id), data=data)
         myevent = {"event":{
-            "name" : {'html':'pears'},
+            "name" : {'html':'stairs'},
             "start" : {
                 'utc': str(startime),
                 'timezone': 'Europe/London'
@@ -40,28 +40,30 @@ def do_after_page_create(request, Page):
                 } ,
             "currency" : 'GBP',
 
-            "tickets" : {'quantity_total': 100},
+
 
             "description" : {'html':'this is a test event'},
 
 
         }}
 
-        ticket_data = {"ticket_class":{
-            "quantity_total" : 100,
-            "name"  : 'free'
-        }}
-        # my_event = json.dumps(myevent, indent=4, sort_keys=True, default=str)
+
 
         postevent = eventbrite.post_event(myevent)
-        postticketdata = eventbrite.post_event_ticket_class(postevent.id,data=ticket_data)
-
+        # postticketdata = eventbrite.post_event_ticket_class([postevent.id],data=ticket_data)
+        tickets = eventbrite.post_event_ticket_class(postevent.id, {
+                'ticket_class.name': 'Free',
+                'ticket_class.free': True,
+                'ticket_class.minimum_quantity': 1,
+                'ticket_class.maximum_quantity': 1,
+                'ticket_class.quantity_total': 10,
+            })
 
         publishevent = eventbrite.publish_event(postevent.id)
 
-
+        print (tickets)
         print (postevent)
-        print (postticketdata)
+
         print (publishevent)
 
 
