@@ -32,3 +32,16 @@ class EventPage(Page):
         FieldPanel('date'),
         StreamFieldPanel('body'),
     ]
+
+class EventbritePage(Page):
+    event_description = RichTextField(blank=True)
+    event_start = models.DateTimeField("event start")
+    event_end = models.DateTimeField("event end")
+
+
+    content_panels = Page.content_panels + [
+
+        FieldPanel('event_start'),
+        FieldPanel('event_end'),
+        FieldPanel('event_description'),
+    ]

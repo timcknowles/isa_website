@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from wagtail.core import hooks
-from .models import EventPage, HomePage
+from .models import EventbritePage, HomePage
 from eventbrite import Eventbrite
 import os
 import datetime
@@ -15,21 +15,27 @@ eventbrite = Eventbrite(eventtoken)
 
 @hooks.register('after_create_page')
 def do_after_page_create(request, Page):
-    if Page.specific_class == EventPage:
+    if Page.specific_class == EventbritePage:
         user = eventbrite.get('/users/me/owned_events')
         print (user.pretty)
         # return HttpResponse("Congrats on making content!", content_type="text/plain")
         # startime = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
         # print (startime)
-        startime = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+        startime = Page.event_start
+        # startime = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
         startime = startime.strftime('%Y-%m-%dT%H:%M:%SZ')
         # endtime = datetime.datetime.utcnow().isoformat()+ datetime.timedelta(hours=2)
-        endtime = datetime.datetime.utcnow() + datetime.timedelta(hours=2)
+        print(startime)
+
+        endtime = Page.event_end
+        # endtime = datetime.datetime.utcnow() + datetime.timedelta(hours=2)
         endtime = endtime.strftime('%Y-%m-%dT%H:%M:%SZ')
+        title = Page.title
+        description = Page.event_description
 
         # return self.post("/events/{0}/".format(id), data=data)
         myevent = {"event":{
-            "name" : {'html':'stairs'},
+            "name" : {'html':(title)},
             "start" : {
                 'utc': str(startime),
                 'timezone': 'Europe/London'
@@ -42,7 +48,7 @@ def do_after_page_create(request, Page):
 
 
 
-            "description" : {'html':'this is a test event'},
+            "description" : {'html':(description)},
 
 
         }}
