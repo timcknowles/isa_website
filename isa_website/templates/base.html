@@ -3,26 +3,31 @@
 <!DOCTYPE html>
 <html class="no-js">
     <head>
-        <meta charset="utf-8" />
-        <title>
-            {% block title %}
-                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
-            {% endblock %}
-            {% block title_suffix %}
-                {% with self.get_site.site_name as site_name %}
-                    {% if site_name %}- {{ site_name }}{% endif %}
-                {% endwith %}
-            {% endblock %}
-        </title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/isa_website.css' %}">
+      <meta charset="utf-8">
+      <title>
+          {% block title %}
+              {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+          {% endblock %}
+          {% block title_suffix %}
+              {% with self.get_site.site_name as site_name %}
+                  {% if site_name %}- {{ site_name }}{% endif %}
+              {% endwith %}
+          {% endblock %}
+      </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        {% block extra_css %}
-            {# Override this in templates to add extra stylesheets #}
-        {% endblock %}
+
+
+
+      <!-- Bootstrap core CSS -->
+      {# Global stylesheets #}
+      <link href="{% static 'bootstrap/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{% static 'bootstrap/css/modern-business.css' %}" rel="stylesheet">
+      {% block extra_css %}
+          {# Override this in templates to add extra stylesheets #}
+      {% endblock %}
+
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
@@ -38,5 +43,57 @@
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}
+
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top navbar-custom">
+          <div class="container">
+            <a class="navbar-brand" href="index.html"> Imperial School of Anaesthesia</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+
+              </ul>
+            </div>
+          </div>
+        </nav>
     </body>
+
+
+
+
+
+
+
+
+
+
+    <!-- Navigation -->
+
+
+    <!-- Page Content -->
+    <div class="container">
+
+
+
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+
+    <script type="text/javascript" src="{% static 'bootstrap/vendor/jquery/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+
+  </body>
+
 </html>
