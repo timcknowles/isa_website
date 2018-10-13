@@ -15,13 +15,15 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', search_views.search, name='search'),
-    # Registration redux url
-    url(r'^accounts/', include('registration.backends.default.urls')),
 
+    url(r'^accounts/', include('registration.backends.default.urls')),
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
     url(r'', include(wagtail_urls)),
+
+    # Registration redux url
+
 
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:
