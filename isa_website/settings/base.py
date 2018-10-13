@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
 
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
+
 ]
 
 MIDDLEWARE = [
@@ -175,3 +177,11 @@ WAGTAIL_SITE_NAME = "isa_website"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+# Registration redux setiing
+
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_EMAIL_HTML = True
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
