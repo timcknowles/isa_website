@@ -78,3 +78,61 @@
     border-color: #581845;
 
   }
+
+.jumbotron {
+    position: relative;
+
+
+    background-image: url("../img/Anaesthetist-Doctors.jpg");
+
+    background-size: cover;
+
+    min-height: 250px;
+ }
+ .jumbo_text {
+     color: white;
+ }
+
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #7A6884;
+  align-items: center;
+
+}
+footer a {
+  color: white !important;
+  align-items: center;
+  text-decoration: none;
+  padding-right: 10px;
+
+}
+
+footer a:hover{
+  color: grey!important;
+  
+}
+
+
+/* .text-muted {
+    color: white!important;
+} */
+
+.social-links {
+  a {
+    text-decoration: none;
+    padding-right: 10px;
+    color: white;
+
+    &:hover {
+      color: $info;
+      cursor: pointer;
+      color: white;
+    }
+  }
+}

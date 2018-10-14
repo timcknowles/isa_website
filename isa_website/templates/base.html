@@ -34,9 +34,9 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
-        {% block content %}{% endblock %}
 
-        
+
+
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/isa_website.js' %}"></script>
@@ -52,49 +52,74 @@
               <span class="navbar-toggler-icon"></span>
 
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
 
               {% load menu_tags %}
 
               {% main_menu max_levels=3 use_specific=USE_SPECIFIC_TOP_LEVEL template="menus/custom_main_menu.html"%}
 
         </nav>
+        <main role="main">
 
-    <content>
-    </content>
-    </body>
+              <!-- Main jumbotron for a primary marketing message or call to action -->
+              <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                  <h1 class="display-3">Hello, world!</h1>
+                  <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+                </div>
+              </div>
+
+              <div class="container">
+              {% block content %}{% endblock %}
+                <!-- Example row of columns -->
+                <div class="row">
+                  <div class="col-md-4">
+                    <h2>Heading</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                  </div>
+                  <div class="col-md-4">
+                    <h2>Heading</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                  </div>
+                  <div class="col-md-4">
+                    <h2>Heading</h2>
+                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                  </div>
+                </div>
 
 
 
+            </container> <!-- /container -->
+
+            </main>
+
+            <footer class="footer">
+                <div class="container text-center">
+
+                        <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+                        <p>&copy; Company 2017-2018</p>
 
 
+                </div>
+            </footer>
+
+            <!-- <footer class="footer">
+                <div class="links">
+
+                </div>
+
+            </footer> -->
 
 
-
-
-
-    <!-- Navigation -->
-
-
-    <!-- Page Content -->
-    <div class="container">
-
-
-
-
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
 
     <!-- Bootstrap core JavaScript -->
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <script type="text/javascript" src="{% static 'bootstrap/vendor/jquery/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
