@@ -1,0 +1,12 @@
+
+{% extends "base.html" %}
+{% load tz %}
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-eventbrite_page{% endblock %}
+
+{% block content %}
+    {{ page.event_description}}
+    {{ page.event_start | localtime }}
+    {{ page.event_end | localtime }}
+{% endblock %}

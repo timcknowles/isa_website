@@ -3,6 +3,7 @@ boto3==1.7.78
 botocore==1.10.78
 certifi==2018.4.16
 chardet==3.0.4
+colorama==0.3.9
 dj-database-url==0.5.0
 dj-static==0.0.6
 Django==2.0.7
@@ -14,6 +15,7 @@ django-treebeard==4.3
 djangorestframework==3.8.2
 docutils==0.14
 draftjs-exporter==2.1.2
+eventbrite==3.3.3
 gunicorn==19.9.0
 html5lib==1.0.1
 idna==2.7
@@ -21,15 +23,20 @@ jmespath==0.9.3
 l18n==2016.6.4
 Pillow==5.2.0
 psycopg2==2.7.5
+pyasn1==0.4.4
 python-dateutil==2.7.3
+python-decouple==3.1
 pytz==2018.5
+PyYAML==3.13
 requests==2.19.1
+rsa==3.4.2
 s3transfer==0.1.13
 six==1.11.0
 static3==0.7.0
 Unidecode==0.4.21
 urllib3==1.23
-wagtail==2.2.1  
+wagtail==2.2.1
 webencodings==0.5.1
 whitenoise==3.3.1
 Willow==1.1
+wagtailmenus
