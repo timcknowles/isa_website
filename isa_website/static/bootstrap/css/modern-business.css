@@ -83,7 +83,7 @@
     position: relative;
 
 
-    background-image: url("../img/Anaesthetist-Doctors.jpg");
+    background-image: url("../img/banner.jpg");
 
     background-size: cover;
 
@@ -115,7 +115,7 @@ footer a {
 
 footer a:hover{
   color: grey!important;
-  
+
 }
 
 
