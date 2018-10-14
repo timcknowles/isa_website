@@ -58,6 +58,13 @@
     background-color: white;
 }
 
+/* .navbar-brand {
+    width: 300px;
+    background: url(../img/logo.png) left center no-repeat;
+    border: 0;
+    text-indent: -99999px;
+} */
+
 .btn-outline-success {
     color: white;
     background-color: transparent;
@@ -87,8 +94,15 @@
 
     background-size: cover;
 
-    min-height: 250px;
+    min-height: 150px;
  }
+
+ .display-3 {
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    color: white;
+}
  .jumbo_text {
      color: white;
  }
