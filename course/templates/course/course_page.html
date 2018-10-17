@@ -1,5 +1,25 @@
+{% extends "base.html" %}
+
 {% load wagtailcore_tags %}
 
 
 
-{% include_block page.details %}
+{% block content %}
+
+{% include_block page.dates %}
+
+{% with blocks=self.details %}
+
+    {% for block in blocks %}
+        {% if block.block_type == 'heading' %}
+            <h2>{{ block.value }}</h2>
+        {% else %}
+           <section class="block-{{ block.block_type }}">
+               {{ block }}
+           </section>
+        {% endif %}
+    {% endfor %}
+
+{% endwith %}
+
+{% endblock %}
