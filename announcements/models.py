@@ -5,6 +5,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.search import index
 
+
 # Create your models here.
 class AnnouncementsIndexPage(Page):
     intro = RichTextField(blank=True)

@@ -9,6 +9,7 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.images.blocks import ImageChooserBlock
 
 
+
 class HomePage(Page):
     body = RichTextField(blank=True)
 
