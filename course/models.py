@@ -5,7 +5,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core import blocks
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, FieldRowPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.search import index
@@ -21,41 +21,56 @@ class CourseIndexPage(Page):
 
 
 class CoursePage(Page):
-    intro = models.CharField(max_length=250)
-    details = StreamField([
-        ('heading', blocks.CharBlock()),
-        ('summary', blocks.RichTextBlock()),
-        ('link', blocks.URLBlock()),
-    ])
+    intro = models.CharField('one line summary', max_length=250)
+    summary = RichTextField('full summary', max_length=250)
+    start_date = models.DateTimeField("course start")
+    end_date = models.DateTimeField("course end")
+
+
 
     dates = StreamField([
-        ('start_date', blocks.DateTimeBlock()),
-        ('end_date', blocks.DateTimeBlock()),
-        ('date_list', blocks.ListBlock(blocks.DateBlock())),
-    ])
+         ('date_list', blocks.ListBlock(blocks.DateBlock(required=False))),
+    ], blank=True)
+
+
+
+    links = StreamField([
+        ('url', blocks.URLBlock()),
+
+    ], blank=True)
+
+
 
     documents = StreamField([
         ('document', DocumentChooserBlock()),
 
-    ])
+    ], blank=True)
 
-    person = StreamField([
+    contact_details = StreamField([
         ('name', blocks.CharBlock()),
         ('email', blocks.EmailBlock()),
         ('number', blocks.CharBlock()),
 
-    ])
+    ], blank=True)
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
-        index.SearchField('details'),
+        index.SearchField('summary'),
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro'),
-        StreamFieldPanel('details'),
+        FieldPanel('intro',),
+        FieldPanel('summary'),
         StreamFieldPanel('dates'),
+        FieldRowPanel([
+            FieldPanel('start_date'),
+            FieldPanel('end_date'),
+            # StreamFieldPanel('date_list'),
+        ]),
+        StreamFieldPanel('links'),
         StreamFieldPanel('documents'),
-        StreamFieldPanel('person'),
+        StreamFieldPanel('contact_details'),
+
+
 
     ]

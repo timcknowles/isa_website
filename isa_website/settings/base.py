@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',
+    'wagtail.contrib.styleguide',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -54,7 +55,7 @@ INSTALLED_APPS = [
     'storages',
     'crispy_forms',
     'announcements',
-    'course' 
+    'course'
 
 ]
 
