@@ -2,24 +2,29 @@
 
 {% load wagtailcore_tags %}
 
-
+{% block body_class %}template-coursepage{% endblock %}
 
 {% block content %}
 
-{% include_block page.dates %}
+        <div class="card text-center">
+          <div class="card-header">
+            {{ page.title }}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ page.intro }}</h5>
+            <p class="card-text">{{ page.summary|richtext }}</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Start Date{{ page.start_date }}</li>
+                <li class="list-group-item">End Date{{ page.end_date }}</li>
+                <li class="list-group-item">{% include_block page.contact_details %}</li>
+            </ul>
+            <div class="card-body">
+            <a href="{{ page.get_parent.url }}" class="btn btn-primary">Return to courses</a>
 
-{% with blocks=self.details %}
 
-    {% for block in blocks %}
-        {% if block.block_type == 'heading' %}
-            <h2>{{ block.value }}</h2>
-        {% else %}
-           <section class="block-{{ block.block_type }}">
-               {{ block }}
-           </section>
-        {% endif %}
-    {% endfor %}
-
-{% endwith %}
-
+          <!-- </div>
+            <a href="{{ page.get_parent.url }}" class="btn btn-primary">Return to courses</a>
+          </div> -->
+          <h1>sosmdjsdfsdfjksn</h1>
+        </div>
 {% endblock %}

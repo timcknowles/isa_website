@@ -5,7 +5,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core import blocks
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, FieldRowPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, FieldRowPanel, MultiFieldPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.search import index
@@ -19,35 +19,28 @@ class CourseIndexPage(Page):
         FieldPanel('intro', classname="full")
     ]
 
+class DateWithDescriptionBlock(blocks.StructBlock):
+    date = blocks.DateBlock()
+    description = blocks.CharBlock()
+
+    class Meta:
+        icon = 'date'
+
 
 class CoursePage(Page):
     intro = models.CharField('one line summary', max_length=250)
-    summary = RichTextField('full summary', max_length=250)
-    start_date = models.DateTimeField("course start")
-    end_date = models.DateTimeField("course end")
-
-
+    summary = RichTextField('full summary')
+    start_date = models.DateTimeField(blank=True, help_text="for courses with consecutive dates")
+    end_date = models.DateTimeField(blank=True)
 
     dates = StreamField([
-         ('date_list', blocks.ListBlock(blocks.DateBlock(required=False))),
-    ], blank=True)
+        ('date_list', blocks.ListBlock(DateWithDescriptionBlock()))
+    ], blank=True, help_text="for courses with non  consecutive dates")
 
 
-
-    links = StreamField([
-        ('url', blocks.URLBlock()),
-
-    ], blank=True)
-
-
-
-    documents = StreamField([
-        ('document', DocumentChooserBlock()),
-
-    ], blank=True)
 
     contact_details = StreamField([
-        ('name', blocks.CharBlock()),
+        ('name', blocks.CharBlock(icon = 'user')),
         ('email', blocks.EmailBlock()),
         ('number', blocks.CharBlock()),
 
@@ -59,16 +52,23 @@ class CoursePage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro',),
-        FieldPanel('summary'),
-        StreamFieldPanel('dates'),
-        FieldRowPanel([
-            FieldPanel('start_date'),
-            FieldPanel('end_date'),
-            # StreamFieldPanel('date_list'),
-        ]),
-        StreamFieldPanel('links'),
-        StreamFieldPanel('documents'),
+        FieldPanel('intro', classname="full"),
+        FieldPanel('summary', classname="full"),
+
+        MultiFieldPanel(
+            [
+                FieldRowPanel([
+                    FieldPanel('start_date', classname="full"),
+                    FieldPanel('end_date', classname="full"),
+                ]),
+                StreamFieldPanel('dates', classname="full"),
+            ],
+            heading="Course Dates",
+        ),
+
+
+
+
         StreamFieldPanel('contact_details'),
 
 

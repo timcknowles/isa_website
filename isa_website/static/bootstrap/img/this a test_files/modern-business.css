@@ -1,0 +1,152 @@
+
+.btn-primary { background-color: #7A6884; }
+
+
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.portfolio-item {
+  margin-bottom: 30px;
+}
+
+
+.navbar-custom {
+    background-color: #7A6884;
+}
+
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: white;
+}
+
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: white;
+}
+
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #581845;
+}
+
+/* for dropdown only - change the color of droodown */
+.navbar-custom .dropdown-menu {
+    background-color: white;
+}
+.navbar-custom .dropdown-item {
+    color: #581845;
+}
+.navbar-custom .dropdown-item:hover,
+.navbar-custom .dropdown-item:focus {
+    color: #7A6884;
+    background-color: white;
+}
+
+/* .navbar-brand {
+    width: 300px;
+    background: url(../img/logo.png) left center no-repeat;
+    border: 0;
+    text-indent: -99999px;
+} */
+
+.btn-outline-success {
+    color: white;
+    background-color: transparent;
+    background-image: none;
+    border-color: white;
+
+    /* &:hover {
+    color: $color-hover;
+    background-color: $active-background;
+    border-color: $active-border; */
+  }
+
+.btn-outline-success:hover,
+.btn-outline-success:focus {
+
+    color: #7A6884;
+    background-color: white;
+    border-color: #581845;
+
+  }
+
+.jumbotron {
+    position: relative;
+
+
+    background-image: url("../img/banner.jpg");
+
+    background-size: cover;
+
+    min-height: 150px;
+ }
+
+ .display-3 {
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    color: white;
+}
+ .jumbo_text {
+     color: white;
+ }
+
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #7A6884;
+  align-items: center;
+
+}
+footer a {
+  color: white !important;
+  align-items: center;
+  text-decoration: none;
+  padding-right: 10px;
+
+}
+
+footer a:hover{
+  color: grey!important;
+
+}
+
+
+/* .text-muted {
+    color: white!important;
+} */
+
+.social-links {
+  a {
+    text-decoration: none;
+    padding-right: 10px;
+    color: white;
+
+    &:hover {
+      color: $info;
+      cursor: pointer;
+      color: white;
+    }
+  }
+}

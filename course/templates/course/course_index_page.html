@@ -1,5 +1,18 @@
+{% extends "base.html" %}
+
 {% load wagtailcore_tags %}
 
+{% block body_class %}template-courseindexpage{% endblock %}
 
+{% block content %}
+    <h1>{{ page.title }}</h1>
 
-{% include_block page.body %}
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for post in page.get_children %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+        {{ post.specific.intro }}
+        {{ post.specific.summary|richtext }}
+    {% endfor %}
+
+{% endblock %}
