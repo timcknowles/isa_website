@@ -132,6 +132,10 @@ footer a:hover{
 
 }
 
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
 
 /* .text-muted {
     color: white!important;
@@ -150,3 +154,5 @@ footer a:hover{
     }
   }
 }
+
+.i .calendar-text { margin-top: .3em; }

@@ -30,12 +30,12 @@ class DateWithDescriptionBlock(blocks.StructBlock):
 class CoursePage(Page):
     intro = models.CharField('one line summary', max_length=250)
     summary = RichTextField('full summary')
-    start_date = models.DateTimeField(blank=True, help_text="for courses with consecutive dates")
-    end_date = models.DateTimeField(blank=True)
+    start_date = models.DateTimeField(blank=False)
+    end_date = models.DateTimeField(null=True,blank=True, help_text="for courses with consecutive dates")
 
     dates = StreamField([
         ('date_list', blocks.ListBlock(DateWithDescriptionBlock()))
-    ], blank=True, help_text="for courses with non  consecutive dates")
+    ], blank=True, help_text="for additional non consecutive dates")
 
 
 

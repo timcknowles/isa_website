@@ -6,25 +6,36 @@
 
 {% block content %}
 
+
+<style>
+        .calendar-text { margin-top: .3em; }
+</style>
+
         <div class="card text-center">
           <div class="card-header">
-            {{ page.title }}
+                  <span class="fa-stack fa-2x">
+                          <i class="fas fa-calendar fa-stack-2x "></i>
+                          <strong class="calendar-text fa-stack-1x fa-inverse ">{{ page.start_date.day }}</strong>
+                  </span>{{ page.start_date|date:"F Y" }} <h1>{{ page.title }}</h1>
           </div>
           <div class="card-body">
             <h5 class="card-title">{{ page.intro }}</h5>
             <p class="card-text">{{ page.summary|richtext }}</p>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Start Date{{ page.start_date }}</li>
-                <li class="list-group-item">End Date{{ page.end_date }}</li>
-                <li class="list-group-item">{% include_block page.contact_details %}</li>
+                <li class="list-group-item">
+                        {% if not page.dates %}
+                            From {{ page.start_date|date:"d/m/y" }}  To {{ page.end_date|date:"d/m/y" }}
+                        {% else %}
+                           Course Dates {{ page.dates }}
+                        {% endif %} </li>
             </ul>
             <div class="card-body">
             <a href="{{ page.get_parent.url }}" class="btn btn-primary">Return to courses</a>
 
 
-          <!-- </div>
-            <a href="{{ page.get_parent.url }}" class="btn btn-primary">Return to courses</a>
-          </div> -->
+
+            </div>
+
           <h1>sosmdjsdfsdfjksn</h1>
         </div>
 {% endblock %}
