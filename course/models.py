@@ -5,10 +5,12 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core import blocks
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, FieldRowPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, FieldRowPanel, MultiFieldPanel, InlinePanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.search import index
+from wagtail.core.models import Orderable, Page
+from modelcluster.fields import ParentalKey
 
 
 # Create your models here.
@@ -25,6 +27,25 @@ class DateWithDescriptionBlock(blocks.StructBlock):
 
     class Meta:
         icon = 'date'
+
+class RelatedLink(models.Model):
+    title = models.CharField(max_length=255)
+    link_external = models.URLField("External link", blank=True)
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('link_external'),
+    ]
+
+    class Meta:
+        abstract = True
+
+# The real model which combines the abstract model, an
+# Orderable helper class, and what amounts to a ForeignKey link
+# to the model we want to add related links to (BookPage)
+class CoursePageRelatedLinks(Orderable, RelatedLink):
+    page = ParentalKey('CoursePage', on_delete=models.CASCADE, related_name='related_links')
+
 
 
 class CoursePage(Page):
@@ -54,6 +75,8 @@ class CoursePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('summary', classname="full"),
+        InlinePanel('related_links', label="Related Links"),
+
 
         MultiFieldPanel(
             [

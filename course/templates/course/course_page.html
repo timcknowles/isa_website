@@ -7,6 +7,7 @@
 {% block content %}
 
 
+
 <style>
         .calendar-text { margin-top: .3em; }
 </style>
@@ -19,7 +20,7 @@
                   </span>{{ page.start_date|date:"F Y" }} <h1>{{ page.title }}</h1>
           </div>
           <div class="card-body">
-            <h5 class="card-title">{{ page.intro }}</h5>
+            <h5 class="card-title">{{ page.intro }} </h5>
             <p class="card-text">{{ page.summary|richtext }}</p>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
@@ -28,13 +29,24 @@
                         {% else %}
                            Course Dates {{ page.dates }}
                         {% endif %} </li>
+                <li class="list-group-item">
+                        {% for related_link in page.related_links.all %}
+                            {{ related_link.title }}
+                            {{ related_link.link_external }}
+                        {% endfor %} </li>
             </ul>
+
+
+
             <div class="card-body">
             <a href="{{ page.get_parent.url }}" class="btn btn-primary">Return to courses</a>
 
 
 
             </div>
+
+
+
 
           <h1>sosmdjsdfsdfjksn</h1>
         </div>
