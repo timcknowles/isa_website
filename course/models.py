@@ -58,6 +58,8 @@ class RelatedDate(models.Model):
 
 
 
+
+
 class CoursePageRelatedDates(Orderable, RelatedDate):
     page = ParentalKey('CoursePage', on_delete=models.CASCADE, related_name='related_dates')
 
@@ -119,4 +121,9 @@ class CoursePage(Page):
 
 
     ]
-    
+    def get_context(self, request):
+        context = super().get_context(request)
+        relateddates = self.related_dates.order_by('date')[:1]
+        #the [:1] returns the first result from the list e.g. the start date.
+        context['relateddates'] = relateddates
+        return context
