@@ -16,8 +16,8 @@
           <div class="card-header">
                   <span class="fa-stack fa-2x">
                           <i class="fas fa-calendar fa-stack-2x "></i>
-                          <strong class="calendar-text fa-stack-1x fa-inverse ">{{ page.start_date.day }}</strong>
-                  </span>{{ page.start_date|date:"F Y" }} <h1>{{ page.title }}</h1>
+                          <strong class="calendar-text fa-stack-1x fa-inverse ">{{ relateddates.first.date.day }}</strong>
+                  </span>{{ relateddates.first.date|date:"F Y" }} <h1>{{ page.title }}</h1>
           </div>
           <div class="card-body">
             <h5 class="card-title">{{ page.intro }} </h5>
@@ -35,16 +35,21 @@
                             {{ related_link.link_external }}
                         {% endfor %} </li>
                 <li class="list-group-item">
+                <!-- this returns date objects without a sort order -->
                         {% for related_date in page.related_dates.all %}
                             {{ related_date.date }}
                             {{ related_date.description }}
                         {% endfor %} </li>
 
-                <li class="list-group-item">
+
+                <!-- this uses the queryset to return a desc date order -->
                         {% for related_date in relateddates %}
+                <li class="list-group-item">
                              {{ related_date.date }}
                              {{ related_date.description }}
                         {% endfor %} </li>
+                <li class="list-group-item">
+                        {{ relateddates.first.date }} </li>
 
             </ul>
 
