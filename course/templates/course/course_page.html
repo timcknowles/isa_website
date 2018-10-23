@@ -34,6 +34,17 @@
                             {{ related_link.title }}
                             {{ related_link.link_external }}
                         {% endfor %} </li>
+                <li class="list-group-item">
+                        {% for related_date in page.related_dates.all %}
+                            {{ related_date.date }}
+                            {{ related_date.description }}
+                        {% endfor %} </li>
+
+                <li class="list-group-item">
+                        {% for page in relateddates %}
+                             {{ related_date.date }}
+                             {{ related_date.description }}
+                        {% endfor %} </li>
             </ul>
 
 

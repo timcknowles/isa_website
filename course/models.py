@@ -40,11 +40,32 @@ class RelatedLink(models.Model):
     class Meta:
         abstract = True
 
-# The real model which combines the abstract model, an
-# Orderable helper class, and what amounts to a ForeignKey link
-# to the model we want to add related links to (BookPage)
 class CoursePageRelatedLinks(Orderable, RelatedLink):
     page = ParentalKey('CoursePage', on_delete=models.CASCADE, related_name='related_links')
+
+class RelatedDate(models.Model):
+    date = models.DateField("Course Date", blank=True)
+    description = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('date'),
+        FieldPanel('description'),
+    ]
+
+    class Meta:
+        abstract = True
+
+
+
+
+class CoursePageRelatedDates(Orderable, RelatedDate):
+    page = ParentalKey('CoursePage', on_delete=models.CASCADE, related_name='related_dates')
+
+
+
+
+
+
 
 
 
@@ -76,6 +97,7 @@ class CoursePage(Page):
         FieldPanel('intro', classname="full"),
         FieldPanel('summary', classname="full"),
         InlinePanel('related_links', label="Related Links"),
+        InlinePanel('related_dates', label="Related Dates"),
 
 
         MultiFieldPanel(
@@ -97,3 +119,4 @@ class CoursePage(Page):
 
 
     ]
+    
