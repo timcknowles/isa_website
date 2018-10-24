@@ -11,8 +11,8 @@
     <div class="intro">{{ page.intro|richtext }}</div>
 
     {% for course_page in course_pages %}
-        {{ course_page.summary }}
-        {% for related_date in course_page.related_dates.all %}
+        {{ course_page.title }}
+        {% for related_date in course_page.related_dates.all|dictsort:"date" %}
             {{ related_date.date }}
         {% endfor %}
     {% endfor %}
