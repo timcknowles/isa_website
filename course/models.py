@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg, Max, Min
 
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
@@ -23,7 +24,8 @@ class CourseIndexPage(Page):
 
     def get_context(self, request):
         context = super(CourseIndexPage, self).get_context(request)
-        context['course_pages'] = CoursePage.objects.live()
+        context['course_pages'] = CoursePage.objects.live().annotate(start_date=Min('related_dates__date')).order_by('start_date')
+        # context['course_dates'] = CoursePage.objects.live()
         return context
 
 
@@ -84,7 +86,7 @@ class CoursePageRelatedDates(Orderable, RelatedDate):
 class CoursePage(Page):
     intro = models.CharField('one line summary', max_length=250)
     summary = RichTextField('full summary')
-    start_date = models.DateTimeField(blank=False)
+    # start_date = models.DateTimeField(blank=False)
     end_date = models.DateTimeField(null=True,blank=True, help_text="for courses with consecutive dates")
 
     dates = StreamField([
@@ -115,7 +117,7 @@ class CoursePage(Page):
         MultiFieldPanel(
             [
                 FieldRowPanel([
-                    FieldPanel('start_date', classname="full"),
+                    # FieldPanel('start_date', classname="full"),
                     FieldPanel('end_date', classname="full"),
                 ]),
                 StreamFieldPanel('dates', classname="full"),
