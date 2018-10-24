@@ -21,6 +21,14 @@ class CourseIndexPage(Page):
         FieldPanel('intro', classname="full")
     ]
 
+    def get_context(self, request):
+        context = super(CourseIndexPage, self).get_context(request)
+        context['course_pages'] = CoursePage.objects.live().order_by('start_date')
+        return context
+
+
+
+
 class DateWithDescriptionBlock(blocks.StructBlock):
     date = blocks.DateBlock()
     description = blocks.CharBlock()
@@ -43,6 +51,7 @@ class RelatedLink(models.Model):
 class CoursePageRelatedLinks(Orderable, RelatedLink):
     page = ParentalKey('CoursePage', on_delete=models.CASCADE, related_name='related_links')
 
+
 class RelatedDate(models.Model):
     date = models.DateField("Course Date", blank=True)
     description = models.CharField(max_length=255)
@@ -62,6 +71,7 @@ class RelatedDate(models.Model):
 
 class CoursePageRelatedDates(Orderable, RelatedDate):
     page = ParentalKey('CoursePage', on_delete=models.CASCADE, related_name='related_dates')
+
 
 
 
