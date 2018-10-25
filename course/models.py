@@ -28,6 +28,7 @@ class CourseIndexPage(Page):
         # context['course_dates'] = CoursePage.objects.live()
         return context
 
+#
 
 
 

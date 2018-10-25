@@ -14,6 +14,8 @@
     {% for course_page in course_pages %}
         <article>
             {{ course_page.title }}
+            {{ course_page.related_dates.date.0 }}
+
 
             {% for related_date in course_page.related_dates.all %}
                 {{ related_date.date }}
