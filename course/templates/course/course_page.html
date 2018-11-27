@@ -23,23 +23,24 @@
             <h5 class="card-title">{{ page.intro }} </h5>
             <p class="card-text">{{ page.summary|richtext }}</p>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">
+                <!-- <li class="list-group-item">
                         {% if not page.dates %}
                             From {{ page.start_date|date:"d/m/y" }}  To {{ page.end_date|date:"d/m/y" }}
                         {% else %}
                            Course Dates {{ page.dates }}
-                        {% endif %} </li>
+                        {% endif %} </li> -->
                 <li class="list-group-item">
                         {% for related_link in page.related_links.all %}
-                            {{ related_link.title }}
-                            {{ related_link.link_external }}
+                            <!-- {{ related_link.title }}
+                            {{ related_link.link_external }} -->
+                            <a href="{{ related_link.link_external }}">{{ related_link.title }}</a>
                         {% endfor %} </li>
-                <li class="list-group-item">
-                <!-- this returns date objects without a sort order -->
+                <!-- <li class="list-group-item">
+                this returns date objects without a sort order
                         {% for related_date in page.related_dates.all %}
                             {{ related_date.date }}
                             {{ related_date.description }}
-                        {% endfor %} </li>
+                        {% endfor %} </li> -->
 
 
                 <!-- this uses the queryset to return a desc date order -->
@@ -48,8 +49,8 @@
                              {{ related_date.date }}
                              {{ related_date.description }}
                         {% endfor %} </li>
-                <li class="list-group-item">
-                        {{ relateddates.first.date }} </li>
+                <!-- <li class="list-group-item">
+                        {{ relateddates.first.date }} </li> -->
 
             </ul>
 
@@ -65,6 +66,6 @@
 
 
 
-          <h1>sosmdjsdfsdfjksn</h1>
+          <!-- <h1>sosmdjsdfsdfjksn</h1> -->
         </div>
 {% endblock %}

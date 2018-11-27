@@ -88,12 +88,6 @@ class CoursePage(Page):
     intro = models.CharField('one line summary', max_length=250)
     summary = RichTextField('full summary')
     # start_date = models.DateTimeField(blank=False)
-    end_date = models.DateTimeField(null=True,blank=True, help_text="for courses with consecutive dates")
-
-    dates = StreamField([
-        ('date_list', blocks.ListBlock(DateWithDescriptionBlock()))
-    ], blank=True, help_text="for additional non consecutive dates")
-
 
 
     contact_details = StreamField([
@@ -113,27 +107,10 @@ class CoursePage(Page):
         FieldPanel('summary', classname="full"),
         InlinePanel('related_links', label="Related Links"),
         InlinePanel('related_dates', label="Related Dates"),
-
-
-        MultiFieldPanel(
-            [
-                FieldRowPanel([
-                    # FieldPanel('start_date', classname="full"),
-                    FieldPanel('end_date', classname="full"),
-                ]),
-                StreamFieldPanel('dates', classname="full"),
-            ],
-            heading="Course Dates",
-        ),
-
-
-
-
         StreamFieldPanel('contact_details'),
 
-
-
     ]
+    
     def get_context(self, request):
         context = super().get_context(request)
         relateddates = self.related_dates.order_by('date')
