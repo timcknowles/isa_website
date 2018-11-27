@@ -12,6 +12,7 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.search import index
 from wagtail.core.models import Orderable, Page
 from modelcluster.fields import ParentalKey
+from wagtailgmaps.edit_handlers import MapFieldPanel
 
 
 # Create your models here.
@@ -88,6 +89,8 @@ class CoursePage(Page):
     intro = models.CharField('one line summary', max_length=250)
     summary = RichTextField('full summary')
     # start_date = models.DateTimeField(blank=False)
+    formatted_address = models.CharField(max_length=255)
+    latlng_address = models.CharField(max_length=255)
 
 
     contact_details = StreamField([
@@ -108,9 +111,11 @@ class CoursePage(Page):
         InlinePanel('related_links', label="Related Links"),
         InlinePanel('related_dates', label="Related Dates"),
         StreamFieldPanel('contact_details'),
+        MapFieldPanel('formatted_address'),
+        # MapFieldPanel('latlng_address', latlng=True),
 
     ]
-    
+
     def get_context(self, request):
         context = super().get_context(request)
         relateddates = self.related_dates.order_by('date')

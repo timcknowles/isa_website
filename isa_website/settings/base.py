@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.core',
     'wagtailmenus',
+    'wagtailgmaps',
 
     'modelcluster',
     'taggit',
@@ -194,9 +195,13 @@ DEFAULT_FROM_EMAIL = 'anaesthesiaimperial@gmail.com'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'GMAIL_USER' 
-EMAIL_HOST_PASSWORD = 'GMAIL_PASSWORD'
+
+
+#WAGTAILMAPS
+# Mandatory
+WAGTAIL_ADDRESS_MAP_CENTER = 'London, United Kingdom'  # It must be a properly formatted address
+WAGTAIL_ADDRESS_MAP_KEY = os.environ.get('WAGTAIL_ADDRESS_MAP_KEY')
+
+# Optional
+WAGTAIL_ADDRESS_MAP_ZOOM = 8  # See https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions for more information.
+WAGTAIL_ADDRESS_MAP_LANGUAGE = 'en'  # See https://developers.google.com/maps/faq#languagesupport for supported languages.
