@@ -3,6 +3,8 @@
 
 
 
+
+
 @media (min-width: 992px) {
   body {
     padding-top: 56px;
@@ -139,6 +141,7 @@
   background-color: #7A6884;
   align-items: center;
 
+
 }
 footer a {
   color: white !important;
@@ -177,3 +180,7 @@ body {
 }
 
 .i .calendar-text { margin-top: .3em; }
+
+.border-primary {
+  border-color: $white !important;
+}
