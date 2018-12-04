@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
-
+{% load wagtailimages_tags %}
 {% block body_class %}template-coursepage{% endblock %}
 
 {% block content %}
@@ -11,14 +11,32 @@
 <style>
         .calendar-text { margin-top: .3em; }
 </style>
+<!-- <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+  </div>
+  <img class="card-img-bottom" src="..." alt="Card image cap">
+</div> -->
+        <div class="card border-primary mb-3" style="">
+           <h5 class="card-header text-center">{{ page.title }}</h5>
 
-        <div class="card text-center">
-          <div class="card-header">
-                  <span class="fa-stack fa-2x">
+
+
+
+          <img class="card-img-top" {% image page.course_image original %} </img>
+          <!-- <div class="card-img-overlay"> -->
+            <!-- <h4 class="card-title">{{ page.title }} </h4>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text">Last updated 3 mins ago</p> -->
+
+                  <!-- <span class="fa-stack fa-2x">
                           <i class="fas fa-calendar fa-stack-2x "></i>
                           <strong class="calendar-text fa-stack-1x fa-inverse ">{{ relateddates.first.date.day }}</strong>
-                  </span>{{ relateddates.first.date|date:"F Y" }} <h1>{{ page.title }}</h1>
-          </div>
+                  </span>{{ relateddates.first.date|date:"F Y" }} <h1>{{ page.title }}</h1> -->
+           <!-- </div> -->
+
           <div class="card-body">
             <h5 class="card-title">{{ page.intro }} </h5>
             <p class="card-text">{{ page.summary|richtext }}</p>
@@ -29,8 +47,9 @@
                         {% else %}
                            Course Dates {{ page.dates }}
                         {% endif %} </li> -->
-                <li class="list-group-item">
                         {% for related_link in page.related_links.all %}
+                <li class="list-group-item">
+
                             <!-- {{ related_link.title }}
                             {{ related_link.link_external }} -->
                             <a href="{{ related_link.link_external }}">{{ related_link.title }}</a>
@@ -56,8 +75,8 @@
 
 
 
-            <div class="card-body">
-            <a href="{{ page.get_parent.url }}" class="btn btn-primary">Return to courses</a>
+            <div class="card-footer text-center">
+              <a href="{{ page.get_parent.url }}" class="btn btn-primary">Return to courses</a>
 
 
 
@@ -66,6 +85,8 @@
 
 
 
-          <!-- <h1>sosmdjsdfsdfjksn</h1> -->
+
+
         </div>
+
 {% endblock %}

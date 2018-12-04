@@ -16,6 +16,7 @@ from wagtailgmaps.edit_handlers import MapFieldPanel
 from wagtail.documents.models import Document
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 # Create your models here.
@@ -43,20 +44,20 @@ class CourseIndexPage(Page):
 #     class Meta:
 #         icon = 'date'
 
-# class RelatedLink(models.Model):
-#     title = models.CharField(max_length=255)
-#     link_external = models.URLField("External link", blank=True)
-#
-#     panels = [
-#         FieldPanel('title'),
-#         FieldPanel('link_external'),
-#     ]
-#
-#     class Meta:
-#         abstract = True
-#
-# class CoursePageRelatedLinks(Orderable, RelatedLink):
-#     page = ParentalKey('CoursePage', on_delete=models.CASCADE, related_name='related_links')
+class RelatedLink(models.Model):
+    title = models.CharField(max_length=255)
+    link_external = models.URLField("External link", blank=True)
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('link_external'),
+    ]
+
+    class Meta:
+        abstract = True
+
+class CoursePageRelatedLinks(Orderable, RelatedLink):
+    page = ParentalKey('CoursePage', on_delete=models.CASCADE, related_name='related_links')
 
 
 class RelatedDate(models.Model):
@@ -94,15 +95,20 @@ class CoursePage(Page):
     # start_date = models.DateTimeField(blank=False)
     address_details = models.CharField('address details', max_length=250, blank=True)
     formatted_address = models.CharField(max_length=255)
-    latlng_address = models.CharField(max_length=255)
+    # latlng_address = models.CharField(max_length=255)
 
-    # course_file = models.ForeignKey(
-    #     'wagtaildocs.Document',
-    #     null=True,
-    #     blank=True,
-    #     on_delete=models.SET_NULL,
-    #     related_name='+'
-    # )
+    course_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    course_flyer = StreamField([
+        ('course_flyer', DocumentChooserBlock ()),
+
+    ], blank=True)
 
     organiser_name = models.CharField('name', max_length=250, blank=True)
     organiser_email = models.EmailField('email', blank=True)
@@ -122,10 +128,12 @@ class CoursePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('summary', classname="full"),
-        # DocumentChooserPanel('course_file'),
-        # InlinePanel('related_links', label="Course Links"),
+
+        ImageChooserPanel('course_image'),
+        InlinePanel('related_links', label="Course Links"),
         InlinePanel('related_dates', label="Course Dates"),
         StreamFieldPanel('course_programme'),
+        StreamFieldPanel('course_flyer'),
 
 
         MultiFieldPanel(
