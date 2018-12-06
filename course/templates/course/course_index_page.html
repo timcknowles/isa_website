@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
-
+{% load wagtailimages_tags %}
 {% block body_class %}template-courseindexpage{% endblock %}
 
 
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
+    <!-- <h1>{{ page.title }}</h1>
 
 
     <div class="intro">{{ page.intro|richtext }}</div>
@@ -21,7 +21,6 @@
 
       <h5 class="card-title">{{ course_page.intro }}</h5>
       {% with related_date=course_page.related_dates.first %}
-        <!-- <p class="card-text">{{ related_date.description }}</p> -->
         <p class="card-text">{{ related_date.date|date:"d/m/y" }}</p>
         <a href="{{ course_page.url}}" class="btn btn-primary">Go to course</a>
       </div>
@@ -30,20 +29,49 @@
         Last Published at: {{ course_page.last_published_at }}
       </div>
     </div>
-    {% endfor %}
-    <!-- {% for course_page in course_pages %}
-        <article>
-            {{ course_page.title }}
-
-            {% with related_date=course_page.related_dates.first %}
-                {{ related_date.date|date:"d/m/y" }}
-                {{ related_date.description }}
-            {% endwith %}
-
-
-
-        </article>
     {% endfor %} -->
+
+    <!-- Blog Post -->
+    {% for course_page in course_pages %}
+    <div class="card mb-4 test-center">
+      <div class="card-body">
+        <div class="row">
+
+          <div class="col-lg-6">
+              {% with related_date=course_page.related_dates.first %}
+              <h4 class="card-title">{{related_date.date|date:"jS F Y" }}</h4>
+              <h2 class="card-text">{{ course_page.title }}</h2>
+              <p class="card-text">{{ course_page.intro }}</p>
+              <a href="{{ course_page.url}}" class="btn btn-primary">Go to course</a>
+              {% endwith %}
+
+          </div>
+          <div class="col-lg-6">
+              <a href="#">
+                <img class="img-fluid rounded" {% image course_page.course_image width-300 %} </img>
+              </a>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        {{ course_page.last_published_at }} by
+        <a href="#">{{ course_page.user }}</a>
+      </div>
+
+    </div>
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+</div>
+<!-- /.container -->
 
 
 

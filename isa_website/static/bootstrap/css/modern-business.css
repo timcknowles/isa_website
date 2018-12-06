@@ -181,6 +181,6 @@ body {
 
 .i .calendar-text { margin-top: .3em; }
 
-.border-primary {
+.border-primary  {
   border-color: $white !important;
 }
