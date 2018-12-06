@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+
+
+{% with blocks=self.section %}
+
+
+    {% for block in blocks %}
+        {% if block.block_type == 'sub_heading' %}
+        <div class="card">
+          <div class="card-header">
+            <h5>{{ block.value }}</h5>
+          </div>
+
+        {% else %}
+          <div class="card-body>
+           <section class="block-{{ block.block_type }}">
+               {{ block }}
+           </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+{% endwith %}
+</div>
+
+
+{% endblock %}
