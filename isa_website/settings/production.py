@@ -55,3 +55,8 @@ EMAIL_HOST_USER = env['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = env['EMAIL_HOST_PASSWORD']
 
 WAGTAIL_ADDRESS_MAP_KEY = env['WAGTAIL_ADDRESS_MAP_KEY']
+WAGTAIL_ADDRESS_MAP_CENTER = 'Charing Cross Hospital, London, United Kingdom'  # It must be a properly formatted address
+
+# Optional
+WAGTAIL_ADDRESS_MAP_ZOOM = 14  # See https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions for more information.
+WAGTAIL_ADDRESS_MAP_LANGUAGE = 'en'  # See https://developers.google.com/maps/faq#languagesupport for supported languages.
