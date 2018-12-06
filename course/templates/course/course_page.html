@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% block body_class %}template-coursepage{% endblock %}
+
+{% block content %}
+
+
+
+<style>
+        .calendar-text { margin-top: .3em; }
+</style>
+<!-- <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+  </div>
+  <img class="card-img-bottom" src="..." alt="Card image cap">
+</div> -->
+        <div class="card border-primary">
+           <h5 class="card-header text-center">{{ page.title }}</h5>
+
+
+
+
+          <img class="card-img-top" {% image page.course_image original %} </img>
+          <!-- <div class="card-img-overlay"> -->
+            <!-- <h4 class="card-title">{{ page.title }} </h4>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text">Last updated 3 mins ago</p> -->
+
+                  <!-- <span class="fa-stack fa-2x">
+                          <i class="fas fa-calendar fa-stack-2x "></i>
+                          <strong class="calendar-text fa-stack-1x fa-inverse ">{{ relateddates.first.date.day }}</strong>
+                  </span>{{ relateddates.first.date|date:"F Y" }} <h1>{{ page.title }}</h1> -->
+           <!-- </div> -->
+
+          <div class="card-body">
+            <h5 class="card-header">{{ page.intro }} </h5>
+            <p class="card-text">{{ page.summary|richtext }}</p>
+
+            <h5 class="card-header"> Location </h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <p class="card-text"><a href="http://maps.google.com/?q={{ self.formatted_address }}">{{ self.formatted_address }}</a> </p>
+                </li>
+            <!-- <h5 class="card-header"> Map </h5>
+            <p class="card-text"><iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=self.formatted_address&key=xxx"></iframe> -->
+
+            <h5 class="card-header"> Course Document(s) </h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <p class="card-text">{{ page.course_flyer }}</p>
+                </li>
+
+            <h5 class="card-header">Course Links</h5>
+            <ul class="list-group list-group-flush">
+                <!-- <li class="list-group-item">
+                        {% if not page.dates %}
+                            From {{ page.start_date|date:"d/m/y" }}  To {{ page.end_date|date:"d/m/y" }}
+                        {% else %}
+                           Course Dates {{ page.dates }}
+                        {% endif %} </li> -->
+                        {% for related_link in page.related_links.all %}
+                <li class="list-group-item">
+
+                            <!-- {{ related_link.title }}
+                            {{ related_link.link_external }} -->
+                            <a href="{{ related_link.link_external }}">{{ related_link.title }}</a>
+                        {% endfor %} </li>
+
+
+            </ul>
+
+            <h5 class="card-header">Course Dates</h5>
+            <ul class="list-group list-group-flush">
+                <!-- <li class="list-group-item">
+                        {% if not page.dates %}
+                            From {{ page.start_date|date:"d/m/y" }}  To {{ page.end_date|date:"d/m/y" }}
+                        {% else %}
+                           Course Dates {{ page.dates }}
+                        {% endif %} </li> -->
+
+                <!-- this uses the queryset to return a desc date order -->
+                        {% for related_date in relateddates %}
+                <li class="list-group-item">
+                             {{ related_date.date }}
+                             {{ related_date.description }}
+                        {% endfor %} </li>
+                <!-- <li class="list-group-item">
+                        {{ relateddates.first.date }} </li> -->
+
+            </ul>
+
+            <h5 class="card-header"> Course Organisor </h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <p class="card-text">{{ page.organiser_name }}</p>
+                  <p class="card-text"> <i class="fas fa-envelope"  style="padding-left: 3px; padding-right: 3px;"> </i><a href="mailto:{{ page.organiser_email }}" target="_top">{{ page.organiser_email }}</a></p>
+                  <p class="card-text"> {{ page.organiser_number }}</p>
+                 </li>
+
+
+
+            <div class="card-footer text-center">
+              <a href="{{ page.get_parent.url }}" class="btn btn-primary">Return to courses</a>
+
+
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+{% endblock %}

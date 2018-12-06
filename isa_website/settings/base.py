@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',
+    'wagtail.contrib.styleguide',
+    'wagtail.contrib.table_block',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -40,6 +42,8 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.core',
     'wagtailmenus',
+    'wagtailgmaps',
+
 
     'modelcluster',
     'taggit',
@@ -53,6 +57,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',
     'crispy_forms',
+    'announcements',
+    'course'
 
 ]
 
@@ -186,5 +192,18 @@ REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_EMAIL_HTML = True
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
+REGISTRATION_FORM = 'isa_website.forms.CustomForm'
+DEFAULT_FROM_EMAIL = 'anaesthesiaimperial@gmail.com'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+
+#WAGTAILMAPS
+# Mandatory
+WAGTAIL_ADDRESS_MAP_CENTER = 'Charing Cross Hospital, London, United Kingdom'  # It must be a properly formatted address
+WAGTAIL_ADDRESS_MAP_KEY = os.environ.get('WAGTAIL_ADDRESS_MAP_KEY')
+
+# Optional
+WAGTAIL_ADDRESS_MAP_ZOOM = 14  # See https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions for more information.
+WAGTAIL_ADDRESS_MAP_LANGUAGE = 'en'  # See https://developers.google.com/maps/faq#languagesupport for supported languages.
