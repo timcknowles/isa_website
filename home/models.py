@@ -14,6 +14,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.blocks import SnippetChooserBlock
 
 from modelcluster.fields import ParentalKey
 
@@ -72,6 +73,7 @@ class StandardPage(Page):
         ('document', DocumentChooserBlock()),
         ('embed', EmbedBlock()),
         ('table', TableBlock()),
+        ('person', SnippetChooserBlock(Person)),
     ], blank=True)
 
     person = models.ForeignKey(

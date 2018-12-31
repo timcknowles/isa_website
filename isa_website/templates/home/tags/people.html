@@ -1,0 +1,17 @@
+<!-- {% for person in persons %}
+    <p>
+
+            {{ person.role }}
+            {{ person.full_name }}
+
+    </p>
+{% endfor %} -->
+
+
+{% for person_placement in page.person_placements.all %}
+    <p>
+        {{ person_placement.person.role }}
+        {{ person_placement.person.full_name }}
+
+    </p>
+{% endfor %}

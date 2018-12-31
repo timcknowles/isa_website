@@ -2,32 +2,24 @@
 
 
 {% load static wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags person_tags %}
+
 
 {% block content %}
 
 
 
-{% with blocks=self.section %}
+
+{% include_block page.section %}
+
+{% for person_placement in page.person_placements.all %}
+
+        {{ person_placement.person.role }}
+        {{ person_placement.person.full_name }}
 
 
-    {% for block in blocks %}
-        {% if block.block_type == 'sub_heading' %}
-        <div class="card">
-          <div class="card-header">
-            <h5>{{ block.value }}</h5>
-          </div>
-
-        {% else %}
-          <div class="card-body>
-           <section class="block-{{ block.block_type }}">
-               {{ block }}
-           </div>
-        </div>
-        {% endif %}
-    {% endfor %}
-
-{% endwith %}
-</div>
+{% endfor %}
 
 
-{% endblock %}
+
+{% endblock content%}
