@@ -162,7 +162,7 @@ body {
   padding-top: 0;
   padding-bottom: 0;
   font-size: 19px;
-  font-family: 'Alegreya', serif;
+  font-family: Arial, sans-serif;;
   background: rgb(255,255,255);
   background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 50%,rgba(233,228,221,1) 100%);
   min-height: 100vh;
@@ -181,19 +181,26 @@ h1 {
 h2 {
   font-weight: 900;
   font-family: 'Lato', sans-serif;
-  color: #63210d;
+  color: #581845;
 }
 
 h3 {
   font-weight: 900;
   font-family: 'Lato', sans-serif;
-  color: #63210d;
+  color: #581845;
 }
 
 h4 {
   font-weight: 600;
   font-family: 'Lato', sans-serif;
-  color: #63210d;
+  color: #581845;
+  font-size: 22px;
+}
+
+h5 {
+  font-weight: 600;
+  font-family: 'Lato', sans-serif;
+  color: #581845;
   font-size: 22px;
 }
 
@@ -203,7 +210,7 @@ p {
 }
 
 a, a:focus, a:visited {
-  color: #d4566b;
+  color: #581845;
   text-decoration: none;
 }
 
@@ -231,6 +238,6 @@ a:hover {
 
 .i .calendar-text { margin-top: .3em; }
 
-.border-primary  {
-  border-color: $white !important;
+.border-primary {
+    border-color: #581845!important;
 }

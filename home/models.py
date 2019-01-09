@@ -15,6 +15,7 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.core.blocks import (CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock,)
 
 from modelcluster.fields import ParentalKey
 
@@ -63,10 +64,26 @@ class StandardPagePersonPlacement(Orderable, models.Model):
     def __str__(self):
         return self.page.title + " -> " + self.people.text
 
+class HeadingBlock(StructBlock):
+    """
+    Custom `StructBlock` that allows the user to select h2 - h4 sizes for headers
+    """
+    heading_text = CharBlock(classname="title", required=True)
+    size = ChoiceBlock(choices=[
+        ('', 'Select a header size'),
+        ('h2', 'H2'),
+        ('h3', 'H3'),
+        ('h4', 'H4')
+    ], blank=True, required=False)
+
+    class Meta:
+        icon = "title"
+        template = "blocks/heading_block.html"
+
 class StandardPage(Page):
 
     section = StreamField([
-        ('sub_heading', blocks.CharBlock(classname="sub_heading")),
+        ('heading', HeadingBlock()),
         ('paragraph', blocks.RichTextBlock()),
         ('quote', blocks.BlockQuoteBlock()),
         ('image', ImageChooserBlock()),
