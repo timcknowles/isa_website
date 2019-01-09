@@ -194,6 +194,7 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 REGISTRATION_FORM = 'isa_website.forms.CustomForm'
 DEFAULT_FROM_EMAIL = 'anaesthesiaimperial@gmail.com'
+REGISTRATION_ADMINS = [('Tim', 'tim.c.knowles@gmail.com')]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
