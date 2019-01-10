@@ -1,11 +1,15 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from eventbrite import Eventbrite
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+
+
 
 @csrf_exempt
 def eventbrite(request):
-    # return HttpResponse (request.body)
-    data = json.loads(request.body)
+    return JsonResponse (request.body,safe=False)
+    data = json.loads(request)
     api_url = data.get('api_url', None)
 
     event = Event(api_url)
