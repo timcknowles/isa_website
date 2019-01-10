@@ -162,6 +162,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #MEDIA_URL = '/media/'
 
+WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 
 AWS_S3_REGION_NAME = 'us-east-1'
 AWS_STORAGE_BUCKET_NAME = 'isawebsite'
