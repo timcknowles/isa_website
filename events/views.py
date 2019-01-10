@@ -1,11 +1,10 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+
 from eventbrite import Eventbrite
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
-@require_POST
 @csrf_exempt
 def eventbrite(request):
     # json_string = request
