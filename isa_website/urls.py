@@ -7,6 +7,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
+from . import views
 
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
@@ -15,6 +16,8 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', search_views.search, name='search'),
+    #events page
+    url(r'^events/', views.event_view),
 
     url(r'^accounts/', include('registration.backends.admin_approval.urls')),
 
@@ -22,6 +25,8 @@ urlpatterns = [
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
     url(r'', include(wagtail_urls)),
+
+
 
 
 
