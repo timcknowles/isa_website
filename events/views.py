@@ -3,4 +3,5 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def eventbrite(request):
-    return HttpResponse('{}')
+    return HttpResponse (request.body)
+    return HttpResponse("webhook received by ISA")
