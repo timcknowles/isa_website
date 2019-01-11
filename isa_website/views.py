@@ -1,6 +1,7 @@
 import datetime
 import os
 import json
+import codecs
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -12,13 +13,17 @@ from home.models import Event
 eventtoken = os.environ.get('EVENTBRITE_TOKEN')
 eventbrite = Eventbrite(eventtoken)
 
+#reader to decode the Http
+reader = codecs.getreader("utf-8")
 
 @csrf_exempt
 def eventbrite(request):
     # return HttpResponse (request.body)
-    print (request.body)
-    #data = json.loads(request.body)
-    data = request.body
+    #thing = request.body.read.decode("utf-8")
+    #data = json.loads(thing)
+
+    data = json.loads(request.text.decode())
+
     api_url = data.get('api_url', None)
 
     print (api_url)
