@@ -2,12 +2,14 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% block body_class %}template-newsindexpage{% endblock %}
-
+{% block body_class %}template-surveyindexpage{% endblock %}
 
 
 {% block content %}
-    {% for post in newspages %}
+
+
+
+    {% for post in surveypages %}
     <div class="card mb-4 test-center">
       <div class="card-body">
         <div class="row">
@@ -15,8 +17,8 @@
               {% with post=post.specific %}
               <h4 class="card-title"><a href="{% pageurl post %}">{{ post.title }}</a></h4>
               <h2 class="card-text">{{ post.intro }}</h2>
-              <p class="card-text">{{ post.summary|richtext }}</p>
-              <a href="{{ news_page.url}}" class="btn btn-primary">Go to news article</a>
+              <p class="card-text">{{ post.body|richtext }}</p>
+              <a href="{% pageurl post %}" class="btn btn-primary">See more</a>
               {% endwith %}
 
           </div>

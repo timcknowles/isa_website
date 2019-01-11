@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'announcements',
     'course',
     'events',
-    'news'
+    'news',
+    'surveys'
 
 ]
 
@@ -107,7 +108,7 @@ WSGI_APPLICATION = 'isa_website.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lusiadas',
+        'NAME': 'isa_website',
     }
 }
 
