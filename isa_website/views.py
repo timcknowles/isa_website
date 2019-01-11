@@ -18,20 +18,17 @@ reader = codecs.getreader("utf-8")
 
 @csrf_exempt
 def eventbrite(request):
-    # return HttpResponse (request.body)
-    #thing = request.body.read.decode("utf-8")
-    #data = json.loads(thing)
+    data = request.body.decode('utf-8')
+    data  = json.loads(data)
 
-    data = json.loads(request.text.decode())
-
-    api_url = data.get('api_url', None)
-
+    api_url = data['api_url']
+    print (type(api_url))
     print (api_url)
 
-    event = Event(api_url)
+    event = Event(api_url=api_url)
     event.save()
-    return HttpResponse("webhook received by ISA")
 
+    return HttpResponse("webhook received by ISA")
 
 
 # @app.route('/eventbrite', methods=['POST'])
@@ -58,6 +55,8 @@ def event_view(request):
     # for i in isa_events['events']:
     #     print (i['name']['text'])
     #     html += "<br> %s" % i['name']['text']
-    events = Event.object.all()
+    events = Event.objects.all()
+    for i in events:
+        print (i)
 
-    return HttpResponse(html)
+    return HttpResponse("hello")
