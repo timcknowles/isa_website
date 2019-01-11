@@ -21,6 +21,9 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 # Create your models here.
 class CourseIndexPage(Page):
+
+
+
     intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
@@ -33,7 +36,7 @@ class CourseIndexPage(Page):
         # context['course_dates'] = CoursePage.objects.live()
         return context
 
-#
+    parent_page_types = []
 
 
 
@@ -90,6 +93,8 @@ class CoursePageRelatedDates(Orderable, RelatedDate):
 
 
 class CoursePage(Page):
+
+    parent_page_type = ["CourseIndexPage"]
     intro = models.CharField('one line summary', max_length=250)
     summary = RichTextField('full summary')
     # start_date = models.DateTimeField(blank=False)
@@ -162,6 +167,8 @@ class CoursePage(Page):
         # MapFieldPanel('latlng_address', latlng=True),
 
     ]
+
+    parent_page_types = ['CourseIndexPage']
 
     def get_context(self, request):
         context = super().get_context(request)
