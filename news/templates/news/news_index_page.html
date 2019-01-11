@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% block body_class %}template-blogindexpage{% endblock %}
+
+
+
+{% block content %}
+    {% for post in newspages %}
+    <div class="card mb-4 test-center">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-6">
+              {% with post=post.specific %}
+              <h4 class="card-title"><a href="{% pageurl post %}">{{ post.title }}</a></h4>
+              <h2 class="card-text">{{ post.intro }}</h2>
+              <p class="card-text">{{ post.body|richtext }}</p>
+              <a href="{{ news_page.url}}" class="btn btn-primary">Go to news article</a>
+              {% endwith %}
+
+          </div>
+          <div class="col-lg-6">
+              <a href="#">
+                <img class="img-fluid rounded"  </img>
+              </a>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        {{ post.last_published_at }} by
+        <a href="#">{{ page.owner.first_name }} {{ page.owner.last_name }}</a>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+{% endblock %}

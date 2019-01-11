@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -28,3 +26,22 @@ def eventbrite(request):
     event.save()
 
     return HttpResponse("webhook received by ISA")
+
+
+
+# def webhook():
+#
+#
+#     # Use the API client to convert from a webhook to an API object
+#     api_object = eventbrite.webhook_to_object(request)
+#
+#     # Process the API object
+#     if api_object.type == 'User':
+#         do_user_process(api_object)
+#
+#     if api_object.type == 'Event':
+#         do_event_process(api_object)
+#
+#         print(api_object)
+#
+#     return ""

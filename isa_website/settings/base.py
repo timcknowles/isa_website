@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'announcements',
     'course',
-    'events'
+    'events',
+    'news'
 
 ]
 
