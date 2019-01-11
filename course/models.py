@@ -35,6 +35,8 @@ class CourseIndexPage(Page):
         context['course_pages'] = CoursePage.objects.live().annotate(start_date=Min('related_dates__date')).order_by('start_date')
         # context['course_dates'] = CoursePage.objects.live()
         return context
+    class Meta:
+        verbose_name = "Courses & Conferences Index Page"
 
     parent_page_types = []
 
@@ -124,7 +126,8 @@ class CoursePage(Page):
 
     ], blank=True)
 
-
+    class Meta:
+        verbose_name = "Courses & Conferences Page"
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('summary'),

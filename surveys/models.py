@@ -36,13 +36,12 @@ class SurveysIndexPage(Page):
         FieldPanel('intro', classname="full")
     ]
 
-
+    parent_page_types = []
 
 class SurveysPage(Page):
     intro = models.CharField('one line summary', max_length=250)
     summary = RichTextField('full summary')
     survey_url = models.URLField('link to survey')
-    display_until = models.DateField("display until")
     first_name = models.CharField('First name', max_length=250, blank=True)
     last_name = models.CharField('Last name', max_length=250, blank=True)
     email = models.EmailField('email', blank=True)
@@ -54,13 +53,13 @@ class SurveysPage(Page):
         index.SearchField('summary'),
     ]
 
-
+    parent_page_types = ['SurveysIndexPage']
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('summary', classname="full"),
         FieldPanel('survey_url', classname="full"),
-        FieldPanel('display_until'),
+    
 
     MultiFieldPanel(
     [

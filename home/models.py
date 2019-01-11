@@ -5,7 +5,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core import blocks
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.contrib.table_block.blocks import TableBlock
@@ -22,7 +22,9 @@ from modelcluster.fields import ParentalKey
 @register_snippet
 class Person(models.Model):
     role = models.CharField(max_length=255)
-    full_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    bio = models.CharField(max_length=255)
     person_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -34,11 +36,25 @@ class Person(models.Model):
     class Meta:
         verbose_name = "person"
         verbose_name_plural = "people"
+
     panels = [
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('first_name', classname="col6"),
+                FieldPanel('last_name', classname="col6"),
+            ])
+        ], "Name"),
         FieldPanel('role'),
-        FieldPanel('full_name'),
-        ImageChooserPanel('person_image'),
+        FieldPanel('bio'),
+        ImageChooserPanel('person_image')
     ]
+    # panels = [
+    #     FieldPanel('role'),
+    #     FieldPanel('first_name'),
+    #     FieldPanel('last_name'),
+    #     FieldPanel('bio'),
+    #     ImageChooserPanel('person_image'),
+    # ]
 
     def __str__(self):
         return self.role

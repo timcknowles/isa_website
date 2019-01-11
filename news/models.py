@@ -33,12 +33,12 @@ class NewsIndexPage(Page):
         FieldPanel('intro', classname="full")
     ]
 
+    parent_page_types = []
 
 
 class NewsPage(Page):
     intro = models.CharField('one line summary', max_length=250)
     summary = RichTextField('full summary')
-    display_until = models.DateField("display until")
     first_name = models.CharField('First name', max_length=250, blank=True)
     last_name = models.CharField('Last name', max_length=250, blank=True)
     email = models.EmailField('email', blank=True)
@@ -49,12 +49,11 @@ class NewsPage(Page):
         index.SearchField('summary'),
     ]
 
-
+    parent_page_types = ['NewsIndexPage']
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('summary', classname="full"),
-        FieldPanel('display_until'),
 
     MultiFieldPanel(
     [
