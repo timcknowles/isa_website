@@ -10,7 +10,7 @@
 
 
 
-{% include_block page.section %}
+<!-- {% include_block page.section %}
 
 {% for person_placement in page.person_placements.all %}
 
@@ -18,8 +18,30 @@
         {{ person_placement.person.first_name }}
 
 
-{% endfor %}
+{% endfor %} -->
 
+<div class="container">
+
+  <!-- Introduction Row -->
+  <h1 class="my-4">Key People
+    <small>It's Nice to Meet You!</small>
+  </h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, explicabo dolores ipsam aliquam inventore corrupti eveniet quisquam quod totam laudantium repudiandae obcaecati ea consectetur debitis velit facere nisi expedita vel?</p>
+
+  <!-- Team Members Row -->
+  {% for person_placement in page.person_placements.all %}
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="my-4">Key People</h2>
+    </div>
+    <div class="col-lg-4 col-sm-6 text-center mb-4">
+      <img class="rounded-circle img-fluid d-block mx-auto" {% image person_placement.person.person_image width-200 %} </img>
+      <h3>{{ person_placement.person.first_name }} {{ person_placement.person.last_name }}
+        <small>{{ person_placement.person.role }}</small>
+      </h3>
+      <p>{{ person_placement.person.bio }}</p>
+    </div>
+  {% endfor %}
 
 
 {% endblock content%}
