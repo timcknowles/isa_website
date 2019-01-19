@@ -2,6 +2,7 @@ import datetime
 import os
 import json
 import codecs
+import inspect
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -11,18 +12,17 @@ from home.models import Event
 
 #set the token
 eventtoken = os.environ.get('EVENTBRITE_TOKEN')
-eventbrite = Eventbrite(eventtoken)
 
 #reader to decode the Http
 reader = codecs.getreader("utf-8")
 
 @csrf_exempt
 def eventbrite(request):
+
     data = request.body.decode('utf-8')
     data  = json.loads(data)
 
     api_url = data['api_url']
-    print (type(api_url))
     print (api_url)
 
     event = Event(api_url=api_url)
@@ -48,15 +48,48 @@ def webhook():
 
 
 def event_view(request):
-
-    # #isa_events = eventbrite.get_organizers_events(12665608962)
-    # isa_events = eventbrite.event_search(**{'organizer.id':12665608962})
-    # # print (isa_events['events'])
-    # for i in isa_events['events']:
-    #     print (i['name']['text'])
-    #     html += "<br> %s" % i['name']['text']
+    eventbrite = Eventbrite(eventtoken)
     events = Event.objects.all()
-    for i in events:
-        print (i)
 
+    live_events = [[],[],[],[],[]]
+
+    for i in events:
+        try:
+            api_object = eventbrite.get(i.api_url)
+            #print(api_object.pretty)
+
+            #create dictionary of event
+            isa_event = {
+                "name": api_object['name']['html'],
+                "starttime": api_object['start']['local'],
+                "url": api_object['start']['local'],
+            }
+
+            #find which kind of event it is
+            #get first 3 characters of event name
+            name_code = api_object['name']['html'][0:3]
+            name_code = name_code.lower()
+            print(name_code)
+
+            #now loop to put event in correct category
+            if name_code == "cor":
+                live_events[0].append(isa_event)
+            elif name_code == "int":
+                live_events[1].append(isa_event)
+            elif name_code =="hig":
+                live_events[2].append(isa_event)
+            elif name_code == "fd ":
+                #skip faculty development events
+                # live_events[3].append(isa_event)
+                # print("append")
+                pass
+            else:
+                live_events[3].append(isa_event)
+
+            print (name_code)
+            live_events.append(isa_event)
+        except:
+            print ("bad api url")
+
+    print (live_events)
     return HttpResponse("hello")
