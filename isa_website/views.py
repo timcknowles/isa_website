@@ -6,6 +6,7 @@ import inspect
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 from eventbrite import Eventbrite
 
 from home.models import Event
@@ -62,7 +63,7 @@ def event_view(request):
             isa_event = {
                 "name": api_object['name']['html'],
                 "starttime": api_object['start']['local'],
-                "url": api_object['start']['local'],
+                "url": api_object['url'],
             }
 
             #find which kind of event it is
@@ -91,5 +92,5 @@ def event_view(request):
         except:
             print ("bad api url")
 
-    print (live_events)
-    return HttpResponse("hello")
+    context= {"events": live_events}
+    return render(request,'events.html', context)
