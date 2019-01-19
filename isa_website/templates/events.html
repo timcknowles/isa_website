@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% block body_class %}template-coursepage{% endblock %}
+
+{% block content %}
+<h1>ISA events</h1>
+<ul>
+{% for event in events %}
+  <li>
+    {{event.name}} {{event.starttime|date:"d F h A"}} <a href='{{event.url}}'>Link</a>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

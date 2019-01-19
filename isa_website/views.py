@@ -2,11 +2,12 @@ import datetime
 import os
 import json
 import codecs
-import inspect
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
+from django.utils.dateparse import parse_datetime
+
 from eventbrite import Eventbrite
 
 from home.models import Event
@@ -57,15 +58,18 @@ def event_view(request):
     for i in events:
         try:
             api_object = eventbrite.get(i.api_url)
-            #print(api_object.pretty)
-
+            print(api_object.pretty)
+            try:
+                #print (datetime.datetime.strptime(api_object['start']['local']), "%c")
+                print(parse_datetime(api_object['start']['local']))
+            except:
+                print("couldnt do time thing")
             #create dictionary of event
             isa_event = {
                 "name": api_object['name']['html'],
-                "starttime": api_object['start']['local'],
+                "starttime": parse_datetime(api_object['start']['local']),
                 "url": api_object['url'],
             }
-
             #find which kind of event it is
             #get first 3 characters of event name
             name_code = api_object['name']['html'][0:3]
