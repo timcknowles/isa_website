@@ -1,77 +1,32 @@
+import os
+import tweepy
+
 from django.http import HttpResponse
 from wagtail.core import hooks
-from .models import EventbritePage, HomePage
-from eventbrite import Eventbrite
-import os
-import datetime
-import json
-from django.core.serializers.json import DjangoJSONEncoder
 
-#set the token
-eventtoken = os.environ.get('EVENTBRITE_TOKEN')
-eventbrite = Eventbrite(eventtoken)
-
+#get the tokens
+consumer_token = os.environ.get('CONSUMER_KEY')
+consumer_secret = os.environ.get('CONSUMER_SECRET')
+access_token = os.environ.get('ACCESS_TOKEN')
+access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
 
 
 @hooks.register('after_create_page')
 def do_after_page_create(request, Page):
-    if Page.specific_class == EventbritePage:
-        user = eventbrite.get('/users/me/owned_events')
-        print (user.pretty)
-        # return HttpResponse("Congrats on making content!", content_type="text/plain")
-        # startime = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
-        # print (startime)
-        startime = Page.event_start
-        # startime = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
-        startime = startime.strftime('%Y-%m-%dT%H:%M:%SZ')
-        # endtime = datetime.datetime.utcnow().isoformat()+ datetime.timedelta(hours=2)
-        print(startime)
 
-        endtime = Page.event_end
-        # endtime = datetime.datetime.utcnow() + datetime.timedelta(hours=2)
-        endtime = endtime.strftime('%Y-%m-%dT%H:%M:%SZ')
-        title = Page.title
-        description = Page.event_description
-
-        # return self.post("/events/{0}/".format(id), data=data)
-        myevent = {"event":{
-            "name" : {'html':(title)},
-            "start" : {
-                'utc': str(startime),
-                'timezone': 'Europe/London'
-                } ,
-            "end" : {
-                'utc': str(endtime),
-                'timezone': 'Europe/London'
-                } ,
-            "currency" : 'GBP',
+    #Have some kind of if page.tweet=TRue statement
 
 
+    #setup the authentication
+    auth = tweepy.OAuthHandler(consumer_token, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
 
-            "description" : {'html':(description)},
+    api = tweepy.API(auth)
 
+    post_url = "http://isawebsite.com" + Page.url_path
+    isa_tweet = "New post: \n" + Page.title + "\n " + post_url
 
-        }}
-
-
-
-        postevent = eventbrite.post_event(myevent)
-        # postticketdata = eventbrite.post_event_ticket_class([postevent.id],data=ticket_data)
-        tickets = eventbrite.post_event_ticket_class(postevent.id, {
-                'ticket_class.name': 'Free',
-                'ticket_class.free': True,
-                'ticket_class.minimum_quantity': 1,
-                'ticket_class.maximum_quantity': 1,
-                'ticket_class.quantity_total': 10,
-            })
-
-        publishevent = eventbrite.publish_event(postevent.id)
-
-        print (tickets)
-        print (postevent)
-
-        print (publishevent)
-
-
-
-        return HttpResponse("Congrats on making an event", content_type="text/plain")
+    #tweet!
+    api.update_status(isa_tweet)
+    print('\n url: ', Page.full_url, '\n title: ', Page.title, '\n relative url:', Page.relative_url, '\n url path:', Page.url_path)
+    return HttpResponse("Congrats on making an event", content_type="text/plain")
