@@ -3,7 +3,7 @@ import os
 import json
 import codecs
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.utils.dateparse import parse_datetime
@@ -28,7 +28,7 @@ def eventbrite(request):
     api_url = data['api_url']
 
     try:
-        api_object = eventbrite.get(i.api_url)
+        api_object = eventbrite.get(api_url)
         print(api_object.pretty)
 
         start_time = parse_datetime(api_object['start']['local'])
@@ -39,7 +39,7 @@ def eventbrite(request):
         name_code = name_code.lower()
 
         def add_event(code):
-            new_event = Event(api_url=api_url, start=start_time, title=api_object['name']['html'], url=api_object['url'], event_code=code)
+            new_event = Event(api_url=api_url, event_start=start_time, title=api_object['name']['html'], event_url=api_object['url'], event_code=code)
             new_event.save()
 
         #now loop to put event in correct category
@@ -55,10 +55,12 @@ def eventbrite(request):
         else:
             add_event("other")
 
+        return HttpResponse("webhook received by ISA")
+
     except:
         print ("bad api url")
+        return HttpResponseBadRequest("bad api url")
 
-    return HttpResponse("webhook received by ISA")
 
 
 # @app.route('/eventbrite', methods=['POST'])
@@ -79,9 +81,18 @@ def webhook():
 
 def event_view(request):
     eventbrite = Eventbrite(eventtoken)
-    events = Event.objects.all()
+    core_events = Event.objects.all().filter(event_code="core")
+    int_events = Event.objects.all().filter(event_code="inter")
+    higher_events = Event.objects.all().filter(event_code="higher")
+    other_events = Event.objects.all().filter(event_code="other")
 
     live_events = [[],[],[],[],[]]
 
-    context= {"events": live_events}
+    context= {
+        "coreevents": core_events,
+        "intermediates": int_events,
+        "higher_events": higher_events,
+        "other_events": other_events
+    }
+
     return render(request,'events.html', context)

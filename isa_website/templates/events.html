@@ -6,11 +6,123 @@
 
 {% block content %}
 <h1>ISA events</h1>
-<ul>
-{% for event in events %}
-  <li>
-    {{event.name}} {{event.starttime|date:"d F h A"}} <a href='{{event.url}}'>Link</a>
-  </li>
-{% endfor %}
-</ul>
+
+<div class="col-md-8">
+  <div class="card">
+    <div class="card-header">
+      <b>Core Training</b>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% if coreevents%}
+        {% for event in coreevents %}
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-7">
+              {{event.title}}
+            </div>
+            <div class="col-md-3">
+              {{event.event_start|date:"h A d F "}}
+            </div>
+            <div class="col-md-2">
+              <a href='{{event.event_url}}'>Link</a>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      {% else %}
+        <li class="list-group-item">
+          No events found
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <b>Intermediate Training</b>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% if intermediates %}
+        {% for event in intermediates %}
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-7">
+              {{event.title}}
+            </div>
+            <div class="col-md-3">
+              {{event.event_start|date:"h A d F "}}
+            </div>
+            <div class="col-md-2">
+              <a href='{{event.event_url}}'>Link</a>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      {% else %}
+        <li class="list-group-item">
+          No events found
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <b>Higher Training</b>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% if higher_events %}
+        {% for event in higher_events %}
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-7">
+              {{event.title}}
+            </div>
+            <div class="col-md-3">
+              {{event.event_start|date:"h A d F "}}
+            </div>
+            <div class="col-md-2">
+              <a href='{{event.event_url}}'>Link</a>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      {% else %}
+        <li class="list-group-item">
+          No events found
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header">
+      <b>Other Events</b>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% if other_events %}
+        {% for event in other_events %}
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-7">
+              {{event.title}}
+            </div>
+            <div class="col-md-3">
+              {{event.event_start|date:"h A d F "}}
+            </div>
+            <div class="col-md-2">
+              <a href='{{event.event_url}}'>Link</a>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      {% else %}
+        <li class="list-group-item">
+          No events found
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
 {% endblock %}

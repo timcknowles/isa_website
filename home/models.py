@@ -144,6 +144,7 @@ class EventbritePage(Page):
 
 class Event(models.Model):
     api_url = models.CharField(max_length=255)
-    start = models.DateTimeField
-    event_code = models.CharField(max_length=255)
-    title   = models.CharField(max_length=255)
+    event_start = models.DateTimeField(null=True)
+    event_code = models.CharField(max_length=255, blank=True)
+    event_url = models.CharField(max_length=255, blank=True)
+    title   = models.CharField(max_length=255, blank=True)
