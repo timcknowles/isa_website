@@ -39,6 +39,7 @@ def eventbrite(request):
         name_code = name_code.lower()
 
         def add_event(code):
+            #ToDo: make sure event isn't already in db
             new_event = Event(api_url=api_url, event_start=start_time, title=api_object['name']['html'], event_url=api_object['url'], event_code=code)
             new_event.save()
 
