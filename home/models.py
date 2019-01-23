@@ -157,7 +157,7 @@ class EventbritePage(Page):
     ]
 
 #model for events
-
+@register_snippet
 class Event(models.Model):
     api_url = models.CharField(max_length=255)
     event_start = models.DateTimeField(null=True)
