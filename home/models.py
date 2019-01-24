@@ -19,6 +19,7 @@ from wagtail.core.blocks import (CharBlock, ChoiceBlock, RichTextBlock, StreamBl
 from wagtail.admin.forms import WagtailAdminModelForm
 from django import forms
 from modelcluster.fields import ParentalKey
+from wagtail.core.signals import page_published
 
 from eventbrite import Eventbrite
 import os
@@ -219,3 +220,21 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+
+
+# Let everyone know when a new page is published
+def send_to_twitter(sender, **kwargs):
+    instance = kwargs['instance']
+    # if instance.title == hello
+    print(instance.title)
+    # else
+    #     print('goodbye')
+
+    return
+
+
+# Register a receiver
+page_published.connect(send_to_twitter)
