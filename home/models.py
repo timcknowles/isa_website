@@ -16,8 +16,15 @@ from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.core.blocks import (CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock,)
-
+from wagtail.admin.forms import WagtailAdminModelForm
+from django import forms
 from modelcluster.fields import ParentalKey
+
+from eventbrite import Eventbrite
+import os
+
+eventtoken = os.environ.get('EVENTBRITE_TOKEN')
+eventbrite = Eventbrite(eventtoken)
 
 @register_snippet
 class Person(models.Model):
@@ -157,6 +164,38 @@ class EventbritePage(Page):
         FieldPanel('event_description'),
     ]
 
+#modfy the event snippet to add a custom non model field
+class EventForm(WagtailAdminModelForm):
+    user_event_id = forms.CharField()
+
+#good place to add validation to check whether event aready exists in DB
+
+#get request on eventbrite api
+    def event(self):
+        eventbrite = Eventbrite(eventtoken)
+        event = eventbrite.get_event('user_event_id')
+        print (event.pretty)
+        print (event.url)
+        print (event.start)
+
+        return event
+
+#autogenrate event model fields from api request
+
+
+
+
+        def save(self, commit=True):
+            event = super().save(commit=False)
+            event_start = event.start
+            event_url = event.url
+
+
+
+
+        if commit:
+            event.save()
+        return page
 #model for events
 @register_snippet
 class Event(models.Model):
@@ -165,3 +204,15 @@ class Event(models.Model):
     event_code = models.CharField(max_length=255, blank=True)
     event_url = models.CharField(max_length=255, blank=True)
     title   = models.CharField(max_length=255, blank=True)
+
+    panels = [
+        FieldPanel('user_event_id'),
+        FieldPanel('api_url'),
+        FieldPanel('event_start'),
+        FieldPanel('event_code'),
+        FieldPanel('title')
+
+
+    ]
+
+    base_form_class = EventForm
