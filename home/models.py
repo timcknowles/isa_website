@@ -55,9 +55,10 @@ class Person(models.Model):
     #     FieldPanel('bio'),
     #     ImageChooserPanel('person_image'),
     # ]
-
     def __str__(self):
-        return self.role
+        return '{} {} ({})'.format(self.first_name, self.last_name, self.role)
+    # def __str__(self):
+    #     return self.role
 
 class HomePage(Page):
     body = RichTextField(blank=True)
