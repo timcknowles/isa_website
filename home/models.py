@@ -216,3 +216,6 @@ class Event(models.Model):
     ]
 
     base_form_class = EventForm
+
+    def __str__(self):
+        return self.title
