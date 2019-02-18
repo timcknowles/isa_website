@@ -228,10 +228,10 @@ class Event(models.Model):
 # Let everyone know when a new page is published
 def send_to_twitter(sender, **kwargs):
     instance = kwargs['instance']
-    # if instance.title == hello
-    print(instance.title)
-    # else
-    #     print('goodbye')
+    if instance.publish_to_twitter is True:
+        print(instance.title)
+    else:
+        print('goodbye')
 
     return
 
