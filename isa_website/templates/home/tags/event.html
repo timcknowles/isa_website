@@ -1,7 +1,11 @@
-{% for event in events %}
+{% for event in event %}
     <p>
-        <a href="{{ event.url }}">
-            {{ event.text }}
-        </a>
+
+        {{ event.title }}
+        {{event.event_start|date:"h A d F "}}
+        <a href='{{event.event_url}}'>Link</a>
+
     </p>
 {% endfor %}
+
+testing

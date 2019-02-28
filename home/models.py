@@ -126,6 +126,8 @@ class StandardPage(Page):
         ('embed', EmbedBlock()),
         ('table', TableBlock()),
         ('person', SnippetChooserBlock(Person)),
+        
+
     ], blank=True)
 
     person = models.ForeignKey(
@@ -135,6 +137,7 @@ class StandardPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+
 
 
     content_panels = Page.content_panels + [

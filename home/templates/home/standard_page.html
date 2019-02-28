@@ -6,7 +6,7 @@
 {% load wagtailcore_tags event_tags %}
 
 
-
+{% block event %}  {% event %} {% endblock %}
 
 {% block content %}
 
@@ -44,5 +44,6 @@
         <p>{{ person_placement.person.bio }}</p>
       </div>
   {% endfor %}
+
 
 {% endblock content %}
