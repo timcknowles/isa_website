@@ -1,4 +1,5 @@
 from django.db import models
+from django.http import HttpResponse
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
@@ -23,6 +24,14 @@ from wagtail.core.signals import page_published
 
 from eventbrite import Eventbrite
 import os
+import tweepy
+
+
+#get the tokens
+consumer_token = os.environ.get('CONSUMER_KEY')
+consumer_secret = os.environ.get('CONSUMER_SECRET')
+access_token = os.environ.get('ACCESS_TOKEN')
+access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
 
 eventtoken = os.environ.get('EVENTBRITE_TOKEN')
 eventbrite = Eventbrite(eventtoken)
@@ -229,7 +238,20 @@ class Event(models.Model):
 def send_to_twitter(sender, **kwargs):
     instance = kwargs['instance']
     if instance.publish_to_twitter is True:
-        print(instance.title)
+        # print(instance.title)
+        #setup the authentication
+        # auth = tweepy.OAuthHandler(consumer_token, consumer_secret)
+        # auth.set_access_token(access_token, access_token_secret)
+        #
+        # api = tweepy.API(auth)
+        #
+        # post_url = "http://isawebsite.com" + Page.url_path
+        # isa_tweet = "New post: \n" + Page.title + "\n " + post_url
+        #
+        # #tweet!
+        # api.update_status(isa_tweet)
+        print('\n url: ', instance.full_url, '\n title: ', instance.title, '\n relative url:', instance.url, '\n url path:', instance.url_path)
+        # return HttpResponse("Congrats on making an event", content_type="text/plain")
     else:
         print('goodbye')
 

@@ -48,3 +48,4 @@ webencodings==0.5.1
 whitenoise==3.3.1
 Willow==1.1
 wagtailgmaps
+tweepy
