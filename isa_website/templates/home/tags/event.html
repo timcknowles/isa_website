@@ -1,11 +1,41 @@
+<h1> Higher </h1>
 {% for event in event %}
-    <p>
 
-        {{ event.title }}
-        {{event.event_start|date:"h A d F "}}
-        <a href='{{event.event_url}}'>Link</a>
+    {% if event.event_code == "higher" %}
+    <ul>
+        <li>{{ event.title }}</li>
+        <li>{{event.event_start|date:"h A d F "}}</li>
+        <li><a href='{{event.event_url}}'>Link</a></li>
+    </ul>
 
-    </p>
+    {% endif %}
+
 {% endfor %}
 
-testing
+<h1> Intermediate </h1>
+{% for event in event %}
+
+    {% if event.event_code == "intermediate" %}
+    <ul>
+        <li>{{ event.title }}</li>
+        <li>{{event.event_start|date:"h A d F "}}</li>
+        <li><a href='{{event.event_url}}'>Link</a></li>
+    </ul>
+
+    {% endif %}
+
+{% endfor %}
+
+<h1> Core </h1>
+{% for event in event %}
+
+    {% if event.event_code == "core" %}
+    <ul>
+        <li>{{ event.title }}</li>
+        <li>{{event.event_start|date:"h A d F "}}</li>
+        <li><a href='{{event.event_url}}'>Link</a></li>
+    </ul>
+
+    {% endif %}
+
+{% endfor %}

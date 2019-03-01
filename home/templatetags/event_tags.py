@@ -5,17 +5,28 @@ register = template.Library()
 
 ...
 
-# Advert snippets
+# event snippets
 @register.inclusion_tag('home/tags/event.html', takes_context=True)
-def event(context):
-    return {
-        'event': Event.objects.all().filter(event_code="core"),
-        # 'event' : Event.objects.all().filter(event_code="core"),
-        # 'event' : Event.objects.all().filter(event_code="higher"),
 
-        'request': context['request'],
+
+def event(context):
+
+
+    return {
+        'event': Event.objects.all(),
+
     }
 
+# def core(context):
+#
+#
+#     return {
+#         'core': Event.objects.all().filter(event_code="core"),
+#
+#
+#
+#         'request': context['request'],
+#     }
 
 # context= {
 #     "coreevents": core_events,
