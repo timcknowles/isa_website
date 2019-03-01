@@ -264,4 +264,4 @@ def send_to_twitter(sender, **kwargs):
 
 
 # Register a receiver
-page_published.connect(send_to_twitter, sender=NewsPage)
+page_published.connect(send_to_twitter)
