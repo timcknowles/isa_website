@@ -21,6 +21,7 @@ from wagtail.admin.forms import WagtailAdminModelForm
 from django import forms
 from modelcluster.fields import ParentalKey
 from wagtail.core.signals import page_published
+from news.models import NewsPage
 
 
 from eventbrite import Eventbrite
@@ -264,4 +265,4 @@ def send_to_twitter(sender, **kwargs):
 
 
 # Register a receiver
-page_published.connect(send_to_twitter)
+page_published.connect(send_to_twitter, NewsPage)
