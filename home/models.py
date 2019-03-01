@@ -22,6 +22,7 @@ from django import forms
 from modelcluster.fields import ParentalKey
 from wagtail.core.signals import page_published
 
+
 from eventbrite import Eventbrite
 import os
 import tweepy
@@ -126,7 +127,9 @@ class StandardPage(Page):
         ('embed', EmbedBlock()),
         ('table', TableBlock()),
         ('person', SnippetChooserBlock(Person)),
-        
+        ('event', blocks.StaticBlock(admin_text='Latest events: no configuration needed.', template='')),
+
+
 
     ], blank=True)
 
@@ -137,12 +140,24 @@ class StandardPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    event = models.ForeignKey(
+        'Event',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+
+
 
 
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('section'),
         InlinePanel('person_placements', label="people"),
+        # SnippetChooserPanel('event'),
+
 
 
     ]
@@ -241,20 +256,7 @@ class Event(models.Model):
 def send_to_twitter(sender, **kwargs):
     instance = kwargs['instance']
     if instance.publish_to_twitter is True:
-        # print(instance.title)
-        #setup the authentication
-        # auth = tweepy.OAuthHandler(consumer_token, consumer_secret)
-        # auth.set_access_token(access_token, access_token_secret)
-        #
-        # api = tweepy.API(auth)
-        #
-        # post_url = "http://isawebsite.com" + Page.url_path
-        # isa_tweet = "New post: \n" + Page.title + "\n " + post_url
-        #
-        # #tweet!
-        # api.update_status(isa_tweet)
-        print('\n url: ', instance.full_url, '\n title: ', instance.title, '\n relative url:', instance.url, '\n url path:', instance.url_path)
-        # return HttpResponse("Congrats on making an event", content_type="text/plain")
+        print(instance.title)
     else:
         print('goodbye')
 
@@ -262,4 +264,4 @@ def send_to_twitter(sender, **kwargs):
 
 
 # Register a receiver
-page_published.connect(send_to_twitter)
+page_published.connect(send_to_twitter, sender=NewsPage)
