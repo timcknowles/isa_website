@@ -269,7 +269,7 @@ def send_to_twitter(sender, **kwargs):
 
         api = tweepy.API(auth)
 
-        post_url = "https://isawebsite.herokuapp.com" + instance.url_path
+        post_url = "https://isawebsite.herokuapp.com" + instance.url
         isa_tweet = "New post: \n" + instance.title + "\n " + post_url
 
         print(consumer_token)
