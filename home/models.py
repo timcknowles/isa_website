@@ -31,9 +31,16 @@ import tweepy
 
 #get the tokens
 
-
+#eventbrite tokens
 eventtoken = os.environ.get('EVENTBRITE_TOKEN')
 eventbrite = Eventbrite(eventtoken)
+#twitter tokens
+consumer_token = os.environ.get('CONSUMER_KEY')
+consumer_secret = os.environ.get('CONSUMER_SECRET')
+access_token = os.environ.get('ACCESS_TOKEN')
+access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
+
+
 
 @register_snippet
 class Person(models.Model):
