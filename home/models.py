@@ -257,7 +257,19 @@ class Event(models.Model):
 def send_to_twitter(sender, **kwargs):
     instance = kwargs['instance']
     if instance.publish_to_twitter is True:
+        print('\n url: ', instance.full_url, '\n title: ', instance.title, '\n relative url:', instance.url, '\n url path:', instance.url_path)
         print(instance.title)
+        #setup the authentication
+        auth = tweepy.OAuthHandler(consumer_token, consumer_secret)
+        auth.set_access_token(access_token, access_token_secret)
+
+        api = tweepy.API(auth)
+
+        post_url = "http://isawebsite.com" + instance.url_path
+        isa_tweet = "New post: \n" + instance.title + "\n " + post_url
+
+        #tweet!
+        api.update_status(isa_tweet)
     else:
         print('goodbye')
 
