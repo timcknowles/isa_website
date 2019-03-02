@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from wagtail.core import hooks
-from .models import EventbritePage, HomePage
+from .models import EventbritePage, HomePage, EventPage
 from eventbrite import Eventbrite
 import os
 import datetime
@@ -75,3 +75,9 @@ def do_after_page_create(request, Page):
 
 
         return HttpResponse("Congrats on making an event", content_type="text/plain")
+
+
+@hooks.register('before_serve_page')
+def get_eventbrite_events(page, request, args, kwargs):
+    if page.specific_class == EventPage:
+        print (page.pretty)

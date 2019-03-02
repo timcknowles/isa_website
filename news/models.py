@@ -33,7 +33,7 @@ class NewsIndexPage(Page):
         FieldPanel('intro', classname="full")
     ]
 
-    parent_page_types = []
+    # parent_page_types = []
 
 
 class NewsPage(Page):
@@ -43,6 +43,7 @@ class NewsPage(Page):
     last_name = models.CharField('Last name', max_length=250, blank=True)
     email = models.EmailField('email', blank=True)
     contact_number = models.CharField('number', max_length=250, blank=True)
+    publish_to_twitter = models.BooleanField(default=False, verbose_name="Check box to publish to Twitter")
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
@@ -54,6 +55,7 @@ class NewsPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('summary', classname="full"),
+        FieldPanel('publish_to_twitter', classname="full"),
 
     MultiFieldPanel(
     [

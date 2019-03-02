@@ -1,0 +1,79 @@
+<div class="container">
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <h2> Higher </h2>
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+        {% for event in event %}
+          <div class="row">
+
+            <!-- <div class="col-lg-6"> -->
+              {% if event.event_code == "higher" %}
+              <div class="col">{{ event.title }}</div>
+              <div class="col">{{event.event_start|date:"h A d F "}}</div>
+              <div class="col"><a href='{{event.event_url}}'>Eventbrite Link</a></div>
+              {% endif %}
+            <!-- </div> -->
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <h2> Intermediate </h2>
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+        {% for event in event %}
+          <div class="row">
+
+            <!-- <div class="col-lg-6"> -->
+              {% if event.event_code == "intermediate" %}
+              <div class="col">{{ event.title }}</div>
+              <div class="col">{{event.event_start|date:"h A d F "}}</div>
+              <div class="col"><a href='{{event.event_url}}'>Eventbrite Link</a></div>
+              {% endif %}
+            <!-- </div> -->
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <h2> Core </h2>
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+        {% for event in event %}
+          <div class="row">
+
+            <!-- <div class="col-lg-6"> -->
+              {% if event.event_code == "intermediate" %}
+              <div class="col">{{ event.title }}</div>
+              <div class="col">{{event.event_start|date:"h A d F "}}</div>
+              <div class="col"><a href='{{event.event_url}}'>Eventbrite Link</a></div>
+              {% endif %}
+            <!-- </div> -->
+          </div>
+        {% endfor %}
+        </div>
+    </div>
+  </div>
+</div>

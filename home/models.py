@@ -1,4 +1,5 @@
 from django.db import models
+from django.http import HttpResponse
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
@@ -16,8 +17,26 @@ from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.core.blocks import (CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock,)
-
+from wagtail.admin.forms import WagtailAdminModelForm
+from django import forms
 from modelcluster.fields import ParentalKey
+from wagtail.core.signals import page_published
+from news.models import NewsPage
+
+
+from eventbrite import Eventbrite
+import os
+import tweepy
+
+
+#get the tokens
+consumer_token = os.environ.get('CONSUMER_KEY')
+consumer_secret = os.environ.get('CONSUMER_SECRET')
+access_token = os.environ.get('ACCESS_TOKEN')
+access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
+
+eventtoken = os.environ.get('EVENTBRITE_TOKEN')
+eventbrite = Eventbrite(eventtoken)
 
 @register_snippet
 class Person(models.Model):
@@ -55,9 +74,11 @@ class Person(models.Model):
     #     FieldPanel('bio'),
     #     ImageChooserPanel('person_image'),
     # ]
-
     def __str__(self):
-        return self.role
+        return '{} {} ({})'.format(self.first_name, self.last_name, self.role)
+    # def __str__(self):
+    #     return self.role
+
 class HomePage(Page):
     body = RichTextField(blank=True)
 
@@ -107,6 +128,10 @@ class StandardPage(Page):
         ('embed', EmbedBlock()),
         ('table', TableBlock()),
         ('person', SnippetChooserBlock(Person)),
+        ('event', blocks.StaticBlock(admin_text='Latest events: no configuration needed.', template='')),
+
+
+
     ], blank=True)
 
     person = models.ForeignKey(
@@ -116,11 +141,24 @@ class StandardPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    event = models.ForeignKey(
+        'Event',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+
+
+
 
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('section'),
         InlinePanel('person_placements', label="people"),
+        # SnippetChooserPanel('event'),
+
 
 
     ]
@@ -154,3 +192,77 @@ class EventbritePage(Page):
         FieldPanel('event_end'),
         FieldPanel('event_description'),
     ]
+
+#modfy the event snippet to add a custom non model field
+class EventForm(WagtailAdminModelForm):
+    user_event_id = forms.CharField()
+
+#good place to add validation to check whether event aready exists in DB
+
+#get request on eventbrite api
+    def event(self):
+        eventbrite = Eventbrite(eventtoken)
+        event = eventbrite.get_event('user_event_id')
+        print (event.pretty)
+        print (event.url)
+        print (event.start)
+
+        return event
+
+#autogenrate event model fields from api request
+
+
+
+
+        def save(self, commit=True):
+            event = super().save(commit=False)
+            event_start = event.start
+            event_url = event.url
+
+
+
+
+        if commit:
+            event.save()
+        return page
+#model for events
+@register_snippet
+class Event(models.Model):
+    api_url = models.CharField(max_length=255)
+    event_start = models.DateTimeField(null=True)
+    event_code = models.CharField(max_length=255, blank=True)
+    event_url = models.CharField(max_length=255, blank=True)
+    title   = models.CharField(max_length=255, blank=True)
+
+    panels = [
+        FieldPanel('user_event_id'),
+        FieldPanel('api_url'),
+        FieldPanel('event_start'),
+        FieldPanel('event_code'),
+        FieldPanel('title')
+
+
+    ]
+
+    base_form_class = EventForm
+
+    def __str__(self):
+        return self.title
+
+
+
+
+
+# Let everyone know when a new page is published
+def send_to_twitter(sender, **kwargs):
+    instance = kwargs['instance']
+    if instance.publish_to_twitter is True:
+        print(instance.title)
+    else:
+        print('goodbye')
+
+    return
+
+
+# Register a receiver
+page_published.connect(send_to_twitter, NewsPage)
