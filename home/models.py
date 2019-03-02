@@ -30,10 +30,7 @@ import tweepy
 
 
 #get the tokens
-consumer_token = os.environ.get('CONSUMER_KEY')
-consumer_secret = os.environ.get('CONSUMER_SECRET')
-access_token = os.environ.get('ACCESS_TOKEN')
-access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
+
 
 eventtoken = os.environ.get('EVENTBRITE_TOKEN')
 eventbrite = Eventbrite(eventtoken)

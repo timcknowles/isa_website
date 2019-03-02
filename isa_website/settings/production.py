@@ -61,6 +61,7 @@ WAGTAIL_ADDRESS_MAP_CENTER = 'Charing Cross Hospital, London, United Kingdom'  #
 WAGTAIL_ADDRESS_MAP_ZOOM = 14  # See https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions for more information.
 WAGTAIL_ADDRESS_MAP_LANGUAGE = 'en'  # See https://developers.google.com/maps/faq#languagesupport for supported languages.
 
+#twiiter api tokens
 consumer_token = env['CONSUMER_KEY']
 consumer_secret = env['CONSUMER_SECRET']
 access_token = env['ACCESS_TOKEN']
