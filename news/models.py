@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
@@ -43,7 +44,7 @@ class NewsPage(Page):
     last_name = models.CharField('Last name', max_length=250, blank=True)
     email = models.EmailField('email', blank=True)
     contact_number = models.CharField('number', max_length=250, blank=True)
-    publish_to_twitter = models.BooleanField(default=False, verbose_name="Check box to publish to Twitter")
+    publish_to_twitter = models.BooleanField(default=False, verbose_name="Publish to Twitter?")
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
@@ -55,7 +56,7 @@ class NewsPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('summary', classname="full"),
-        FieldPanel('publish_to_twitter', classname="full"),
+        FieldPanel('publish_to_twitter', widget=forms.CheckboxInput),
 
     MultiFieldPanel(
     [

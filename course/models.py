@@ -38,7 +38,7 @@ class CourseIndexPage(Page):
     class Meta:
         verbose_name = "Courses & Conferences Index Page"
 
-    parent_page_types = []
+    # parent_page_types = []
 
 
 
@@ -171,7 +171,7 @@ class CoursePage(Page):
 
     ]
 
-    parent_page_types = ['CourseIndexPage']
+    # parent_page_types = ['CourseIndexPage']
 
     def get_context(self, request):
         context = super().get_context(request)
