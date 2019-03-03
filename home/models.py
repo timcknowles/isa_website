@@ -272,7 +272,7 @@ def send_to_twitter(sender, **kwargs):
         post_url = "https://isawebsite.herokuapp.com" + instance.url
         isa_tweet = "New post: \n" + instance.title + "\n " + post_url
 
-        print(consumer_token)
+
 
         #tweet!
         api.update_status(isa_tweet)
