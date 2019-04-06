@@ -73,7 +73,7 @@
 
         </div>
 
-        {% with categories=page.categories.all %}
+        <!-- {% with categories=page.categories.all %}
             {% if categories %}
                 <h3>Posted in:</h3>
                 <ul>
@@ -82,6 +82,8 @@
                             {% image category.icon fill-32x32 style="vertical-align: middle" %}
                             {{ category.name }}
                         </li>
+
+
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -92,11 +94,29 @@
         {% for cat in self.categories.all %}
             <li>
                 <a href="{{ self.get_parent.url }}?category={{ cat.slug }}">
+
                     {{ cat.name }}
                 </a>
             </li>
         {% endfor %}
-    </ul>
+    </ul> -->
+
+{% with categories=page.categories.all %}
+    {% if categories %}
+        <h3>Categories</h3>
+        <ul>
+            {% for category in categories %}
+                <li style="display: inline">
+                    <a href="{% routablepageurl blog_page "post_by_category" category.slug %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+
+
+
 
 
 

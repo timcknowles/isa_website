@@ -2,6 +2,7 @@ from django.db import models
 
 from django import forms
 
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, FieldRowPanel, MultiFieldPanel, InlinePanel
@@ -60,7 +61,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'categories'
 
-class NewsIndexPage(Page):
+class NewsIndexPage(RoutablePageMixin, Page):
     intro = RichTextField(blank=True)
 
     def get_context(self, request):
@@ -68,9 +69,16 @@ class NewsIndexPage(Page):
             context = super().get_context(request)
             newspages = self.get_children().live().order_by('-first_published_at')
             context['newspages'] = newspages
-            context["categories"] = Category.objects.filter(category__slug=category)
+
 
             return context
+
+    @route(r'^category/(?P<category>[-\w]+)/$')
+    def post_by_category(self, request, category, *args, **kwargs):
+        self.search_type = 'category'
+        self.search_term = category
+        self.posts = self.get_posts().filter(categories__slug=category)
+        return Page.serve(self, request, *args, **kwargs)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
@@ -99,6 +107,16 @@ class NewsPage(Page):
     ]
 
     parent_page_types = ['NewsIndexPage']
+
+    @property
+    def news_index_page(self):
+        return self.get_parent().specific
+
+    def get_context(self, request, *args, **kwargs):
+        context = super(NewsPage, self).get_context(request, *args, **kwargs)
+        context['news_index_page'] = self.news_index_page
+        context['news_page'] = self
+        return context
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
