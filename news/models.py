@@ -70,6 +70,7 @@ class NewsIndexPage(RoutablePageMixin, Page):
             context = super().get_context(request)
             newspages = self.get_children().live().order_by('-first_published_at')
             context['newspages'] = newspages
+            context["categories"] = Category.objects.all()
 
 
             return context
