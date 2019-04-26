@@ -1,6 +1,7 @@
 from django.db import models
 
 from django import forms
+from django.shortcuts import render
 
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Page
@@ -73,12 +74,21 @@ class NewsIndexPage(RoutablePageMixin, Page):
 
             return context
 
+    # @route(r'^category/(?P<category>[-\w]+)/$')
+    # def post_by_category(self, request, category, *args, **kwargs):
+    #     self.search_type = 'category'
+    #     self.search_term = category
+    #     self.posts = self.get_posts().filter(categories__slug=category)
+    #     return Page.serve(self, request, *args, **kwargs)
+
     @route(r'^category/(?P<category>[-\w]+)/$')
     def post_by_category(self, request, category, *args, **kwargs):
-        self.search_type = 'category'
-        self.search_term = category
-        self.posts = self.get_posts().filter(categories__slug=category)
-        return Page.serve(self, request, *args, **kwargs)
+        context = self.get_context(request, *args, **kwargs)
+        posts = NewsPage.objects.live().public().filter(categories__slug=category)
+        context["posts"] = posts
+        context["categories"] = Category.objects.all()
+        context["search_term"] = category
+        return render(request, self.template, context)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
@@ -117,6 +127,7 @@ class NewsPage(Page):
         context['news_index_page'] = self.news_index_page
         context['news_page'] = self
         return context
+
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),

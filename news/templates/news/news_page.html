@@ -1,6 +1,6 @@
 
 {% extends "base.html" %}
-
+<!-- {% load wagtailroutablepage_tags %} -->
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load wagtailcore_tags event_tags %}
@@ -101,18 +101,16 @@
         {% endfor %}
     </ul> -->
 
-{% with categories=page.categories.all %}
-    {% if categories %}
-        <h3>Categories</h3>
-        <ul>
-            {% for category in categories %}
-                <li style="display: inline">
-                    <a href="{% routablepageurl blog_page "post_by_category" category.slug %}">{{ category.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
+    <!-- {% if categories.count %}
+           <h3>Categories</h3>
+           <ul>
+               {% for category in categories %}
+                   <li style="display: inline">
+                       <a href="{% routablepageurl page "post_by_category" category.slug %}">{{ category.name }}</a>
+                   </li>
+               {% endfor %}
+           </ul>
+    {% endif %} -->
 
 
 

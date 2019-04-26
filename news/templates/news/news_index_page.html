@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load wagtailroutablepage_tags %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% block body_class %}template-newsindexpage{% endblock %}
@@ -7,6 +7,18 @@
 
 
 {% block content %}
+
+{% if categories.count %}
+       <h3>Categories</h3>
+       <ul>
+           {% for category in categories %}
+               <li style="display: inline">
+                   <a href="{% routablepageurl page "post_by_category" category.slug %}">{{ category.name }}</a>
+               </li>
+           {% endfor %}
+       </ul>
+   {% endif %}
+
     {% for post in newspages %}
     <div class="card mb-4 test-center">
       <div class="card-body">
@@ -35,7 +47,6 @@
     </div>
     {% endfor %}
 </div>
-
 
 
 
