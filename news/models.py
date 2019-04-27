@@ -68,9 +68,7 @@ class NewsIndexPage(RoutablePageMixin, Page):
     def children(self):
         return self.get_children().specific().live()
 
-    # Overrides the context to list all child items, that are live, by the
-    # date that they were published
-    # http://docs.wagtail.io/en/latest/getting_started/tutorial.html#overriding-context
+
     def get_context(self, request):
         context = super(NewsIndexPage, self).get_context(request)
         context['posts'] = NewsPage.objects.descendant_of(
@@ -89,6 +87,8 @@ class NewsIndexPage(RoutablePageMixin, Page):
         context["categories"] = Category.objects.all()
         context["search_term"] = category
         return render(request, self.template, context)
+
+
 
 
 
@@ -135,15 +135,6 @@ class NewsPage(Page):
 
     parent_page_types = ['NewsIndexPage']
 
-    @property
-    def news_index_page(self):
-        return self.get_parent().specific
-
-    def get_context(self, request, *args, **kwargs):
-        context = super(NewsPage, self).get_context(request, *args, **kwargs)
-        context['news_index_page'] = self.news_index_page
-        context['news_page'] = self
-        return context
 
 
     content_panels = Page.content_panels + [
