@@ -65,35 +65,51 @@ class Category(models.Model):
 class NewsIndexPage(RoutablePageMixin, Page):
     intro = RichTextField(blank=True)
 
+    def children(self):
+        return self.get_children().specific().live()
+
+    # Overrides the context to list all child items, that are live, by the
+    # date that they were published
+    # http://docs.wagtail.io/en/latest/getting_started/tutorial.html#overriding-context
     def get_context(self, request):
-            # Update context to include only published posts, ordered by reverse-chron
-            context = super().get_context(request)
-            newspages = self.get_children().live().order_by('-first_published_at')
-            context['newspages'] = newspages
-            context["categories"] = Category.objects.all()
+        context = super(NewsIndexPage, self).get_context(request)
+        context['posts'] = NewsPage.objects.descendant_of(
+            self).live().order_by('-first_published_at')
+        context["categories"] = Category.objects.all()
+        return context
 
 
-            return context
-
-    # @route(r'^category/(?P<category>[-\w]+)/$')
-    # def post_by_category(self, request, category, *args, **kwargs):
-    #     self.search_type = 'category'
-    #     self.search_term = category
-    #     self.posts = self.get_posts().filter(categories__slug=category)
-    #     return Page.serve(self, request, *args, **kwargs)
 
     @route(r'^category/(?P<category>[-\w]+)/$')
     def post_by_category(self, request, category, *args, **kwargs):
         context = self.get_context(request, *args, **kwargs)
-        posts = NewsPage.objects.live().public().filter(categories__slug=category)
+        posts = NewsDetailPage.objects.live().public().filter(categories__slug=category)
+
         context["posts"] = posts
         context["categories"] = Category.objects.all()
         context["search_term"] = category
         return render(request, self.template, context)
 
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full")
-    ]
+
+
+
+
+    # @route(r'^category/(?P<category>[-\w]+)/$')
+    # def post_by_category(self, request, category, *args, **kwargs):
+    #     context = super().get_context(request)
+    #     newspages = self.get_children().live().order_by('-first_published_at')
+    #     context['newspages'] = newspages
+    #     context["categories"] = Category.objects.all()
+    #
+    #
+    #     return context
+    @route(r'^category/(?P<category>[-\w]+)/$')
+    def post_by_category(self, request, category, *args, **kwargs):
+        context = self.get_context(request, *args, **kwargs)
+        posts = NewsPage.objects.live().public().filter(categories__slug=category)
+        # context['newspages'] = newspages
+        context["search_term"] = category
+        return render(request, self.template, context)
 
     # parent_page_types = []
 
