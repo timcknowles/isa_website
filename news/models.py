@@ -78,15 +78,15 @@ class NewsIndexPage(RoutablePageMixin, Page):
 
 
 
-    @route(r'^category/(?P<category>[-\w]+)/$')
-    def post_by_category(self, request, category, *args, **kwargs):
-        context = self.get_context(request, *args, **kwargs)
-        posts = NewsDetailPage.objects.live().public().filter(categories__slug=category)
-
-        context["posts"] = posts
-        context["categories"] = Category.objects.all()
-        context["search_term"] = category
-        return render(request, self.template, context)
+    # @route(r'^category/(?P<category>[-\w]+)/$')
+    # def post_by_category(self, request, category, *args, **kwargs):
+    #     context = self.get_context(request, *args, **kwargs)
+    #     posts = NewsDetailPage.objects.live().public().filter(categories__slug=category)
+    #
+    #     context["posts"] = posts
+    #     context["categories"] = Category.objects.all()
+    #     context["search_term"] = category
+    #     return render(request, self.template, context)
 
 
 
@@ -106,10 +106,13 @@ class NewsIndexPage(RoutablePageMixin, Page):
     @route(r'^category/(?P<category>[-\w]+)/$')
     def post_by_category(self, request, category, *args, **kwargs):
         context = self.get_context(request, *args, **kwargs)
-        posts = NewsPage.objects.live().public().filter(categories__slug=category)
+        posts = NewsPage.objects.live().public().filter(categories__slug__in=[category])
         # context['newspages'] = newspages
+        context["posts"] = posts
         context["search_term"] = category
         return render(request, self.template, context)
+        # this works too
+        # return Page.serve(self, request, *args, **kwargs)
 
     # parent_page_types = []
 
