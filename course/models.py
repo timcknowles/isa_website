@@ -19,6 +19,8 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 
+
+
 # Create your models here.
 class CourseIndexPage(Page):
 

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'wagtail.core',
     'wagtailmenus',
     'wagtailgmaps',
+    'wagtail.contrib.routable_page',
 
 
     'modelcluster',

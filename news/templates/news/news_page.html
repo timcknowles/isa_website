@@ -1,6 +1,6 @@
 
 {% extends "base.html" %}
-
+<!-- {% load wagtailroutablepage_tags %} -->
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load wagtailcore_tags event_tags %}
@@ -72,6 +72,48 @@
 
 
         </div>
+
+        <!-- {% with categories=page.categories.all %}
+            {% if categories %}
+                <h3>Posted in:</h3>
+                <ul>
+                    {% for category in categories %}
+                        <li style="display: inline">
+                            {% image category.icon fill-32x32 style="vertical-align: middle" %}
+                            {{ category.name }}
+                        </li>
+
+
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <h2>Categories</h2>
+    <ul>
+        {% for cat in self.categories.all %}
+            <li>
+                <a href="{{ self.get_parent.url }}?category={{ cat.slug }}">
+
+                    {{ cat.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul> -->
+
+    <!-- {% if categories.count %}
+           <h3>Categories</h3>
+           <ul>
+               {% for category in categories %}
+                   <li style="display: inline">
+                       <a href="{% routablepageurl page "post_by_category" category.slug %}">{{ category.name }}</a>
+                   </li>
+               {% endfor %}
+           </ul>
+    {% endif %} -->
+
+
+
 
 
 

@@ -22,6 +22,7 @@ from django import forms
 from modelcluster.fields import ParentalKey
 from wagtail.core.signals import page_published
 from news.models import NewsPage
+from events.models import Event
 
 
 from eventbrite import Eventbrite
@@ -145,13 +146,13 @@ class StandardPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    event = models.ForeignKey(
-        'Event',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+    # event = models.ForeignKey(
+    #     'Event',
+    #     null=True,
+    #     blank=True,
+    #     on_delete=models.SET_NULL,
+    #     related_name='+'
+    # )
 
 
 
@@ -230,28 +231,7 @@ class EventForm(WagtailAdminModelForm):
             event.save()
         return page
 #model for events
-@register_snippet
-class Event(models.Model):
-    api_url = models.CharField(max_length=255)
-    event_start = models.DateTimeField(null=True)
-    event_code = models.CharField(max_length=255, blank=True)
-    event_url = models.CharField(max_length=255, blank=True)
-    title   = models.CharField(max_length=255, blank=True)
 
-    panels = [
-        FieldPanel('user_event_id'),
-        FieldPanel('api_url'),
-        FieldPanel('event_start'),
-        FieldPanel('event_code'),
-        FieldPanel('title')
-
-
-    ]
-
-    base_form_class = EventForm
-
-    def __str__(self):
-        return self.title
 
 
 
@@ -272,7 +252,7 @@ def send_to_twitter(sender, **kwargs):
         post_url = "https://isawebsite.herokuapp.com" + instance.url
         isa_tweet = "New post: \n" + instance.title + "\n " + post_url
 
-        print(consumer_token)
+
 
         #tweet!
         api.update_status(isa_tweet)
