@@ -1,3 +1,5 @@
+from news.models import NewsIndexPage, NewsPage
+from course.models import CourseIndexPage, CoursePage
 from django.db import models
 from django.http import HttpResponse
 
@@ -21,7 +23,7 @@ from wagtail.admin.forms import WagtailAdminModelForm
 from django import forms
 from modelcluster.fields import ParentalKey
 from wagtail.core.signals import page_published
-from news.models import NewsPage
+
 from events.models import Event
 
 
@@ -87,9 +89,20 @@ class Person(models.Model):
 class HomePage(Page):
     body = RichTextField(blank=True)
 
+    def posts(self):
+        posts = NewsIndexPage.objects.all()
+        # posts = posts.order_by('-last_published_at')
+        return posts
+
     content_panels = Page.content_panels + [
         FieldPanel('body', classname="full"),
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['news_pages'] = NewsPage.objects.live().order_by('-first_published_at')[:1]
+        context['course_pages'] = CoursePage.objects.live().order_by('-first_published_at')[:1]
+        return context
 
 class StandardPagePersonPlacement(Orderable, models.Model):
     page = ParentalKey('StandardPage', on_delete=models.CASCADE, related_name='person_placements')
