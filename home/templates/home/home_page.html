@@ -2,44 +2,46 @@
 
 {% load wagtailcore_tags %}
 
-{% block body_class %}template-homepage{% endblock %}
-
 {% block content %}
-    {{ page.body|richtext }}
 
-  <body>
+    {% for post in posts %}
 
-    <div class="row">
-     <div class="col-md-10 col-md-offset-1 blocks home-page-posts">
-       {% for post in news_pages %}
+      <a href="{{ post.url }}" class="btn btn-primary"> {{ post.title }}</a>
+    {% endfor %}
 
-     <div class="col-md-4">
 
-         <h3>{{ post.title }}</h3>
+  {# Only show pagination if there is more than one page to click through #}
+  {% if posts.paginator.num_pages > 1 %}
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="pagination">
+            {% if posts.has_previous %}
+              <li class="page-item">
+                <a href="?page={{ posts.previous_page_number }}" class="page-link">
+                  <span>&laquo;</span>
+                </a>
+              </li>
+            {% endif %}
 
-     <div class="blog-intro">
+            {% for page_num in posts.paginator.page_range %}
+              <li class="page-item {% if page_num == posts.number %} active{% endif %}">
+                <a href="?page={{ page_num }}" class="page-link">
+                  {{ page_num }}
+                </a>
+              </li>
+            {% endfor %}
 
-     </div>
-     <div class="row">
-       {% endfor %}
-      <div class="col-md-10 col-md-offset-1 blocks home-page-posts">
-        {% for post in course_pages %}
-
-      <div class="col-md-4">
-
-          <h3>{{ post.title }}</h3>
-
-      <div class="blog-intro">
-
+            {% if posts.has_next %}
+              <li class="page-item">
+                <a href="?page={{ posts.next_page_number }}" class="page-link">
+                  <span>&raquo;</span>
+                </a>
+              </li>
+            {% endif %}
+          </div>
+        </div>
       </div>
-   </div>
-       {% endfor %}
-   </div>
- </div>
-
-
-
-
-  </body>
-
-{% endblock %}
+    </div>
+  {% endif %}
+{% endblock content %}
