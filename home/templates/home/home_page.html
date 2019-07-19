@@ -5,8 +5,18 @@
 {% block content %}
 
     {% for post in posts %}
+      <div class="card-body">
+          <h5 class="card-header"><a href="{{ post.url }}" class="btn btn-primary"> {{ post.title }}</a></h5>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <p class="card-text">{{ post.intro|richtext }}</p>
+              </li>
+      <div class="card-footer text-muted">
+        {{ post.first_published_at }} by
+        <a href="#">{{ post.first_name }} {{ post.last_name }}</a>
+      </div>
+      </div>
 
-      <a href="{{ post.url }}" class="btn btn-primary"> {{ post.title }}</a>
     {% endfor %}
 
 
