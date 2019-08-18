@@ -36,7 +36,7 @@ class SurveysIndexPage(Page):
         FieldPanel('intro', classname="full")
     ]
 
-    parent_page_types = []
+    # parent_page_types = []
 
 class SurveysPage(Page):
     intro = models.CharField('one line summary', max_length=250)
@@ -59,7 +59,7 @@ class SurveysPage(Page):
         FieldPanel('intro', classname="full"),
         FieldPanel('summary', classname="full"),
         FieldPanel('survey_url', classname="full"),
-    
+
 
     MultiFieldPanel(
     [

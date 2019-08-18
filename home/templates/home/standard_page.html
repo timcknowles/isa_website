@@ -3,10 +3,10 @@
 
 {% load static wagtailcore_tags wagtailimages_tags %}
 {% load wagtailcore_tags person_tags %}
-{% load wagtailcore_tags event_tags %}
+<!-- {% load wagtailcore_tags event_tags %}
 
 
-{% block event %}  {% event %} {% endblock %}
+{% block event %}  {% event %} {% endblock %} -->
 
 
 {% block content %}
@@ -37,7 +37,7 @@
       </div>
   {% for person_placement in page.person_placements.all %}
       <div class="col-lg-4 col-sm-6 text-center mb-4">
-        <img class="rounded-circle img-fluid d-block mx-auto" {% image person_placement.person.person_image width-200 %} </img>
+        <img class="rounded-circle img-fluid d-block mx-auto" {% image person_placement.person.person_image height-200 %} </img>
         <h4>{{ person_placement.person.first_name }} {{ person_placement.person.last_name }}
 
         </h4>
