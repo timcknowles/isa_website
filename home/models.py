@@ -88,7 +88,10 @@ class Person(models.Model):
     #     return self.role
 
 class HomePage(Page):
+
+    # template = "home/home_page.html"
     body = RichTextField(blank=True)
+
 
     def posts(self):
         posts = NewsIndexPage.objects.all()
@@ -103,9 +106,11 @@ class HomePage(Page):
         """Adding custom stuff to our context."""
         context = super().get_context(request, *args, **kwargs)
         # Get all posts
-        all_posts = NewsPage.objects.live().public().order_by('-first_published_at')
+        # all_posts = NewsPage.objects.live().public().order_by('-first_published_at')
+        all_posts = HomePage.objects.first()
+        child_pages = Page.objects.live().descendant_of(all_posts).specific()
         # Paginate all posts by 2 per page
-        paginator = Paginator(all_posts, 2)
+        paginator = Paginator(child_pages, 2)
         # Try to get the ?page=x value
         page = request.GET.get("page")
         try:
