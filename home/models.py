@@ -108,7 +108,7 @@ class HomePage(Page):
         # Get all posts
         # all_posts = NewsPage.objects.live().public().order_by('-first_published_at')
         all_posts = HomePage.objects.first()
-        child_pages = Page.objects.live().descendant_of(all_posts).specific()
+        child_pages = Page.objects.live().descendant_of(all_posts).not_type(CourseIndexPage).not_type(NewsIndexPage).order_by('-first_published_at').specific()
         # Paginate all posts by 2 per page
         paginator = Paginator(child_pages, 2)
         # Try to get the ?page=x value
