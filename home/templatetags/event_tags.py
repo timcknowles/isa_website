@@ -14,6 +14,7 @@ def event(context):
 
     return {
         'event': Event.objects.all(),
+        'request': context['request'],
 
     }
 
