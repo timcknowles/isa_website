@@ -13,7 +13,7 @@ class Event(models.Model):
     title   = models.CharField(max_length=255, blank=True)
 
     panels = [
-        
+
         FieldPanel('api_url'),
         FieldPanel('event_start'),
         FieldPanel('event_code'),

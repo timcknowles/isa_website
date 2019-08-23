@@ -13,7 +13,7 @@ def event(context):
 
 
     return {
-        'event': Event.objects.all(),
+        'event': Event.objects.all().order_by('event_start'),
         'request': context['request'],
 
     }
