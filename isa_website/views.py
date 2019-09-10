@@ -35,8 +35,8 @@ def eventbrite(request):
         start_time = parse_datetime(api_object['start']['local'])
 
         #find which kind of event it is
-        #get first 3 characters of event name
-        name_code = api_object['name']['html'][4:6]
+        #get first 3 characters of event name ISA Intermediate Training Day
+        name_code = api_object['name']['html'][4:7]
         name_code = name_code.lower()
 
         def add_event(code):
