@@ -20,6 +20,8 @@ urlpatterns = [
     #events page
     url(r'^events/', views.event_view),
 
+    url(r'^showevents/', views.show_events_view),
+
     url(r'^accounts/', include('registration.backends.admin_approval.urls')),
 
     url(r'^eventbrite/$', views.eventbrite, name='eventbrite'),

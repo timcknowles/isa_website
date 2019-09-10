@@ -19,6 +19,36 @@ eventtoken = os.environ.get('EVENTBRITE_TOKEN')
 #reader to decode the Http
 reader = codecs.getreader("utf-8")
 
+
+def show_events_view(request):
+    eventbrite = Eventbrite(eventtoken)
+    # event = eventbrite.get_event('70193585905')
+    my_id = eventbrite.get_user()['id']
+    events = eventbrite.event_search(**{'user.id': my_id})
+    for x in events['events']:
+        title=(x['name']['html'])
+        start_time=parse_datetime(x['start']['local'])
+        event_url=(x['url'])
+        print(title)
+        print(start_time)
+        print(event_url)
+
+        
+        # print(x['start']['local'])
+        # if x['status'] == 'live':
+        #     print(x)
+        # else:
+        #     print('no drafts')
+
+
+    # print(events.pretty)
+    context= {
+
+    }
+
+    return render(request,'showevents.html', context)
+
+
 @csrf_exempt
 def eventbrite(request):
     eventbrite = Eventbrite(eventtoken)
