@@ -28,12 +28,15 @@ def show_events_view(request):
     for x in events['events']:
         title=(x['name']['html'])
         start_time=parse_datetime(x['start']['local'])
-        event_url=(x['url'])
+        api_url=(x['url'])
+        name_code = title[4:7].lower()
+
         print(title)
         print(start_time)
-        print(event_url)
+        print(api_url)
+        print(name_code)
 
-        
+
         # print(x['start']['local'])
         # if x['status'] == 'live':
         #     print(x)
