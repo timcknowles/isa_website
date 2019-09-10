@@ -36,7 +36,7 @@ def eventbrite(request):
 
         #find which kind of event it is
         #get first 3 characters of event name
-        name_code = api_object['name']['html'][0:3]
+        name_code = api_object['name']['html'][4:6]
         name_code = name_code.lower()
 
         def add_event(code):
