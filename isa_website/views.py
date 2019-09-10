@@ -29,12 +29,23 @@ def show_events_view(request):
         title=(x['name']['html'])
         start_time=parse_datetime(x['start']['local'])
         api_url=(x['url'])
+        event_url=(x['url'])
         name_code = title[4:7].lower()
+        if name_code == "cor":
+            code = "core"
+        elif name_code == "int":
+            code = "inter"
+        elif name_code =="hig":
+            code = "higher"
 
-        print(title)
-        print(start_time)
-        print(api_url)
-        print(name_code)
+        else:
+            code = "other"
+
+        new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
+        new_event.save()
+
+        print(new_event)
+
 
 
         # print(x['start']['local'])
@@ -60,6 +71,8 @@ def eventbrite(request):
     data  = json.loads(data)
 
     api_url = data['api_url']
+
+
 
     try:
         api_object = eventbrite.get(api_url)
