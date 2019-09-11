@@ -7,6 +7,9 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.utils.dateparse import parse_datetime
+from django.db import IntegrityError
+from django.shortcuts import render_to_response
+from django.core.exceptions import ObjectDoesNotExist
 
 from eventbrite import Eventbrite
 
@@ -46,8 +49,6 @@ def show_events_view(request):
 
         print(new_event)
 
-
-
         # print(x['start']['local'])
         # if x['status'] == 'live':
         #     print(x)
@@ -61,6 +62,8 @@ def show_events_view(request):
     }
 
     return render(request,'showevents.html', context)
+
+
 
 
 @csrf_exempt
