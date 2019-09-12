@@ -25,43 +25,37 @@ reader = codecs.getreader("utf-8")
 
 def show_events_view(request):
     eventbrite = Eventbrite(eventtoken)
-    # event = eventbrite.get_event('70193585905')
     my_id = eventbrite.get_user()['id']
     events = eventbrite.event_search(**{'user.id': my_id})
+    existing_events = Event.objects.all().values("title")
+    events_list = []
+    for i in existing_events:
+        events_list.append(i['title'])
+
     for x in events['events']:
         title=(x['name']['html'])
-        start_time=parse_datetime(x['start']['local'])
-        api_url=(x['url'])
-        event_url=(x['url'])
-        name_code = title[4:7].lower()
-        if name_code == "cor":
-            code = "core"
-        elif name_code == "int":
-            code = "inter"
-        elif name_code =="hig":
-            code = "higher"
-
+        
+        if title in events_list:
+            pass
         else:
-            code = "other"
+            start_time=parse_datetime(x['start']['local'])
+            api_url=(x['url'])
+            event_url=(x['url'])
+            name_code = title[4:7].lower()
+            if name_code == "cor":
+                code = "core"
+            elif name_code == "int":
+                code = "inter"
+            elif name_code =="hig":
+                code = "higher"
 
-        # new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
-        # new_event.save()
-        #
-        # print(new_event)
+            else:
+                code = "other"
 
-        # does not exist
-        new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
-
-        new_event.save()
-    
-        # print(x['start']['local'])
-        # if x['status'] == 'live':
-        #     print(x)
-        # else:
-        #     print('no drafts')
+            new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
+            new_event.save()
 
 
-    # print(events.pretty)
     context= {
 
     }
