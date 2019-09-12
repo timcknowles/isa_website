@@ -44,11 +44,16 @@ def show_events_view(request):
         else:
             code = "other"
 
+        # new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
+        # new_event.save()
+        #
+        # print(new_event)
+
+        # does not exist
         new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
+
         new_event.save()
-
-        print(new_event)
-
+    
         # print(x['start']['local'])
         # if x['status'] == 'live':
         #     print(x)
