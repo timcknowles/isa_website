@@ -25,38 +25,33 @@ reader = codecs.getreader("utf-8")
 
 def show_events_view(request):
     eventbrite = Eventbrite(eventtoken)
-    # event = eventbrite.get_event('70193585905')
     my_id = eventbrite.get_user()['id']
     events = eventbrite.event_search(**{'user.id': my_id})
+    existing_events = Event.objects.all().values("title")
+
     for x in events['events']:
         title=(x['name']['html'])
-        start_time=parse_datetime(x['start']['local'])
-        api_url=(x['url'])
-        event_url=(x['url'])
-        name_code = title[4:7].lower()
-        if name_code == "cor":
-            code = "core"
-        elif name_code == "int":
-            code = "inter"
-        elif name_code =="hig":
-            code = "higher"
+        for i in existing_events:
+            if title == i['title']:
+                pass
+            else:
+                start_time=parse_datetime(x['start']['local'])
+                api_url=(x['url'])
+                event_url=(x['url'])
+                name_code = title[4:7].lower()
+                if name_code == "cor":
+                    code = "core"
+                elif name_code == "int":
+                    code = "inter"
+                elif name_code =="hig":
+                    code = "higher"
 
-        else:
-            code = "other"
+                else:
+                    code = "other"
 
-        new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
-        new_event.save()
+                new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
+                new_event.save()
 
-        print(new_event)
-
-        # print(x['start']['local'])
-        # if x['status'] == 'live':
-        #     print(x)
-        # else:
-        #     print('no drafts')
-
-
-    # print(events.pretty)
     context= {
 
     }
