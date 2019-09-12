@@ -34,12 +34,13 @@ def show_events_view(request):
 
     for x in events['events']:
         title=(x['name']['html'])
-        
+
         if title in events_list:
             pass
         else:
             start_time=parse_datetime(x['start']['local'])
             api_url=(x['url'])
+            event_id=(x['id'])
             event_url=(x['url'])
             name_code = title[4:7].lower()
             if name_code == "cor":
@@ -51,8 +52,9 @@ def show_events_view(request):
 
             else:
                 code = "other"
-
+            print(event_id)
             new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
+            print(new_event)
             new_event.save()
 
 
