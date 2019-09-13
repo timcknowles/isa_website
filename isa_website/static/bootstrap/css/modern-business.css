@@ -8,8 +8,10 @@
 @media (min-width: 992px) {
   body {
     padding-top: 56px;
+
   }
 }
+
 
 .carousel-item {
   height: 65vh;
@@ -109,6 +111,31 @@
 
     }
 
+  .btn-link,
+  .btn-link:hover,
+  .btn-link:focus,
+  .btn-link:active {
+    color: #581845;
+    background-color: transparent;
+  }
+  .page-link{
+    color: #581845;
+  }
+
+  .page-link:hover,
+  .page-link:focus,
+  .page-link:active {
+
+      color: white;
+      background-color: #7A6884;
+      border-color: grey;
+  }
+
+  .page-item.active .page-link {
+      background-color: #7A6884;
+      border-color: grey;
+  }
+
 .jumbotron {
     position: relative;
 
@@ -130,19 +157,34 @@
      color: white;
  }
 
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
-  background-color: #7A6884;
-  align-items: center;
+ html {
+   position: relative;
+   min-height: 100%;
+ }
 
 
+body {
+  margin-bottom: 60px;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 19px;
+  font-family: Arial, sans-serif;;
+  background: rgb(255,255,255);
+  background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 50%,rgba(233,228,221,1) 100%);
+  min-height: 100px;
 }
+
+.fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    background-color: #7A6884;
+}
+
+
+
 footer a {
   color: white !important;
   align-items: center;
@@ -154,18 +196,6 @@ footer a {
 footer a:hover{
   color: grey!important;
 
-}
-
-
-body {
-  margin-bottom: 60px;
-  padding-top: 0;
-  padding-bottom: 0;
-  font-size: 19px;
-  font-family: Arial, sans-serif;;
-  background: rgb(255,255,255);
-  background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 50%,rgba(233,228,221,1) 100%);
-  min-height: 100vh;
 }
 
 

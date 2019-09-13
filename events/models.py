@@ -10,7 +10,8 @@ class Event(models.Model):
     event_start = models.DateTimeField(null=True)
     event_code = models.CharField(max_length=255, blank=True)
     event_url = models.CharField(max_length=255, blank=True)
-    title   = models.CharField(max_length=255, blank=True)
+    title = models.CharField(max_length=255, blank=True)
+    event_id = models.CharField(max_length=255, blank=True)
 
     panels = [
 

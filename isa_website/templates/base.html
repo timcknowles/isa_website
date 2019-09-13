@@ -45,22 +45,24 @@
             {# Override this in templates to add extra javascript #}
         {% endblock %}
 
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top navbar-custom">
-          <div class="container">
-            <a class="navbar-brand" href='{{ index.url }}'> Imperial School of Anaesthesia</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+        <header>
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top navbar-custom">
+                <div class="container">
+                <a class="navbar-brand" href='/'> Imperial School of Anaesthesia</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
 
-            </button>
+                </button>
 
-            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <div class="collapse navbar-collapse" id="navbarResponsive">
 
-              {% load menu_tags %}
+                  {% load menu_tags %}
 
-              {% main_menu max_levels=3 use_specific=USE_SPECIFIC_TOP_LEVEL template="menus/custom_main_menu.html"%}
+                  {% main_menu max_levels=3 use_specific=USE_SPECIFIC_TOP_LEVEL template="menus/custom_main_menu.html"%}
+                </div>
 
-        </nav>
-        <body>
+            </nav>
+        </header>
         <main role="main">
 
               <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -77,20 +79,51 @@
 
 
 
-            </container>
+            </div>
         </main>
 
 
-        </body>
 
-            <footer class="footer">
+
+            <footer class="page-footer center-on-small-only pt-0 mt-5 fixed-bottom">
                 <div class="container text-center">
-
+                    <span>
                         <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
                         <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
-                        <p>&copy; Company 2017-2018</p>
+                        {% if posts.paginator.num_pages > 5 %}
 
+                          <nav aria-label="Page navigation example">
 
+                            <ul class="pagination justify-content-center">
+                              {% if posts.has_previous %}
+                              <li class="page-item">
+                                <a href="?page={{ posts.previous_page_number }}" class="page-link">
+                                  <span>&laquo;</span>
+                                </a>
+                              </li>
+                              {% endif %}
+
+                              {% for page_num in posts.paginator.page_range %}
+                              <li class="page-item {% if page_num == posts.number %} active{% endif %}">
+                                <a href="?page={{ page_num }}" class="page-link">
+                                  {{ page_num }}
+                                </a>
+                              </li>
+                              {% endfor %}
+
+                              {% if posts.has_next %}
+                              <li class="page-item">
+                                <a href="?page={{ posts.next_page_number }}" class="page-link">
+                                  <span>&raquo;</span>
+                                </a>
+                              </li>
+                              {% endif %}
+                            </ul>
+
+                          </nav>
+                        {% endif %}
+
+                    </span>
                 </div>
             </footer>
 
@@ -104,5 +137,5 @@
     <script type="text/javascript" src="{% static 'bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 
-
+    </body>
 </html>

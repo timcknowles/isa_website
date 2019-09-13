@@ -27,21 +27,22 @@ def show_events_view(request):
     eventbrite = Eventbrite(eventtoken)
     my_id = eventbrite.get_user()['id']
     events = eventbrite.event_search(**{'user.id': my_id})
-    existing_events = Event.objects.all().values("title")
+    existing_events = Event.objects.all().values("event_id")
     events_list = []
     for i in existing_events:
-        events_list.append(i['title'])
+        events_list.append(i['event_id'])
 
     for x in events['events']:
-        title=(x['name']['html'])
+        event_id=(x['id'])
 
-        if title in events_list:
+        if event_id in events_list:
             pass
         else:
             start_time=parse_datetime(x['start']['local'])
             api_url=(x['url'])
             event_id=(x['id'])
             event_url=(x['url'])
+            title=(x['name']['html'])
             name_code = title[4:7].lower()
             if name_code == "cor":
                 code = "core"
@@ -53,7 +54,9 @@ def show_events_view(request):
             else:
                 code = "other"
             print(event_id)
-            new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
+
+            print(start_time)
+            new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code, event_id=event_id)
             print(new_event)
             new_event.save()
 
