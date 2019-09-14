@@ -6,6 +6,7 @@ from registration.forms import RegistrationFormTermsOfService, RegistrationFormU
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.users.forms import UserEditForm, UserCreationForm
+from news.models import NewsPage
 # #
 User = get_user_model()
 
@@ -16,6 +17,8 @@ class CustomForm(RegistrationFormTermsOfService, RegistrationFormUniqueEmail):
   class Meta:
         model = User
         fields = ("username","email", "first_name", "last_name")
+
+
 
   # class Meta:
   #       model = User

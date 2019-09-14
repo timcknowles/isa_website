@@ -2,7 +2,7 @@ from django.db import models
 
 from django import forms
 from django.shortcuts import render
-
+from django.template.response import TemplateResponse
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
@@ -113,6 +113,26 @@ class NewsIndexPage(RoutablePageMixin, Page):
         return render(request, self.template, context)
         # this works too
         # return Page.serve(self, request, *args, **kwargs)
+    @route(r'^$')
+    def base(self, request):
+        return TemplateResponse(
+          request,
+          self.get_template(request),
+          self.get_context(request)
+        )
+
+    @route(r'^submit-blog/$')
+    def submit(self, request):
+        from .views import submit_blog
+        return submit_blog(request, self)
+
+    @route(r'^submit-thank-you/$')
+    def thanks(self, request):
+        return TemplateResponse(
+          request,
+           'portal_pages/thank_you.html',
+           { "thanks_info" : self.thanks_info }
+        )
 
     # parent_page_types = []
 
@@ -120,8 +140,8 @@ class NewsIndexPage(RoutablePageMixin, Page):
 
 
 class NewsPage(Page):
-    intro = models.CharField('one line summary', max_length=250)
-    summary = RichTextField('full summary')
+    intro = models.CharField('one line summary', max_length=250, blank=True)
+    summary = RichTextField('full summary', blank=True)
     first_name = models.CharField('First name', max_length=250, blank=True)
     last_name = models.CharField('Last name', max_length=250, blank=True)
     email = models.EmailField('email', blank=True)

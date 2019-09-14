@@ -16,6 +16,7 @@ from eventbrite import Eventbrite
 # from home.models import Event
 from events.models import Event
 
+
 #set the token
 eventtoken = os.environ.get('EVENTBRITE_TOKEN')
 
