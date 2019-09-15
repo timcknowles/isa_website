@@ -13,6 +13,7 @@ from django.db import IntegrityError
 from django.shortcuts import render_to_response
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import slugify
+from wagtail.admin.utils import send_notification
 
 from eventbrite import Eventbrite
 
@@ -34,8 +35,8 @@ def submit_blog(request, news_index):
               # Submit page for moderation. This requires first saving a revision.
               news.save_revision(submitted_for_moderation=True)
               # Then send the notification to all Wagtail moderators.
-              # send_notification(news.get_latest_revision().id, 'submitted', None)
-          return HttpResponseRedirect(news_index.url)
+              send_notification(news.get_latest_revision().id, 'submitted', None)
+          return HttpResponseRedirect(news_index.url + news_index.reverse_subpage('thanks'))
       context = {
           'form': form,
           'news_index': news_index,

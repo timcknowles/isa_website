@@ -19,3 +19,5 @@ class BlogForm(forms.ModelForm):
         fields = [
             'title', 'summary'
         ]
+    class Media:
+        js = ('static/wagtailadmin/js/vendor.js')

@@ -64,6 +64,7 @@ class Category(models.Model):
 
 class NewsIndexPage(RoutablePageMixin, Page):
     intro = RichTextField(blank=True)
+    thanks_info = RichTextField(blank=True)
 
     def children(self):
         return self.get_children().specific().live()
@@ -130,18 +131,19 @@ class NewsIndexPage(RoutablePageMixin, Page):
     def thanks(self, request):
         return TemplateResponse(
           request,
-           'portal_pages/thank_you.html',
+           'thank_you.html',
            { "thanks_info" : self.thanks_info }
         )
 
     # parent_page_types = []
 
+    content_panels = Page.content_panels + [
+        FieldPanel('thanks_info', classname="full"),
 
-
-
+]
 class NewsPage(Page):
     intro = models.CharField('one line summary', max_length=250, blank=True)
-    summary = RichTextField('full summary', blank=True)
+    summary = RichTextField(blank=True)
     first_name = models.CharField('First name', max_length=250, blank=True)
     last_name = models.CharField('Last name', max_length=250, blank=True)
     email = models.EmailField('email', blank=True)
