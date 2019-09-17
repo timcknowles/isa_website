@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
+{% load static %}
 
 {% block body_class %}template-suggest{% endblock %}
 
 
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'wagtailadmin/css/panels/draftail.css' %}">
+{% endblock %}
 
 
 
