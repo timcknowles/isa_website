@@ -1,0 +1,6 @@
+{% extends "modeladmin/index.html %}
+
+{% block header_extra %}
+    <a href="#">My New Button</a>
+    {{ block.super }}{% comment %}Display the original buttons {% endcomment %}
+{% endblock %}

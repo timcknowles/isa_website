@@ -131,12 +131,44 @@ def webhook():
 
 def event_view(request):
     eventbrite = Eventbrite(eventtoken)
+
+    #hit the API to check for new events
+    my_id = eventbrite.get_user()['id']
+    events = eventbrite.event_search(**{'user.id': my_id})
+    existing_events = Event.objects.all().values("title")
+    events_list = []
+    for i in existing_events:
+        events_list.append(i['title'])
+
+    for x in events['events']:
+        title=(x['name']['html'])
+        
+        if title in events_list:
+            pass
+        else:
+            start_time=parse_datetime(x['start']['local'])
+            api_url=(x['url'])
+            event_url=(x['url'])
+            name_code = title[4:7].lower()
+            if name_code == "cor":
+                code = "core"
+            elif name_code == "int":
+                code = "inter"
+            elif name_code =="hig":
+                code = "higher"
+
+            else:
+                code = "other"
+
+            new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code)
+            new_event.save()
+
+    #pull all the events to display
     core_events = Event.objects.all().filter(event_code="core")
     int_events = Event.objects.all().filter(event_code="inter")
     higher_events = Event.objects.all().filter(event_code="higher")
     other_events = Event.objects.all().filter(event_code="other")
 
-    live_events = [[],[],[],[],[]]
 
     context= {
         "coreevents": core_events,
