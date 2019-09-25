@@ -69,12 +69,16 @@
 
 
       <!-- Bootstrap core CSS -->
-      {# Global stylesheets #}
+
       <link href="{% static 'bootstrap/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
       <link href="{% static 'bootstrap/css/modern-business.css' %}" rel="stylesheet">
+
+
       {% block extra_css %}
           {# Override this in templates to add extra stylesheets #}
       {% endblock %}
+      {# Global stylesheets #}
+
 
     </head>
 
