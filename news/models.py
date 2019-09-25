@@ -143,7 +143,7 @@ class NewsIndexPage(RoutablePageMixin, Page):
 ]
 class NewsPage(Page):
     intro = models.CharField('one line summary', max_length=250, blank=True)
-    summary = RichTextField(blank=True)
+    summary = RichTextField(blank=True, verbose_name="summary")
     first_name = models.CharField('First name', max_length=250, blank=True)
     last_name = models.CharField('Last name', max_length=250, blank=True)
     email = models.EmailField('email', blank=True)
