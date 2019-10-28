@@ -1,3 +1,4 @@
+
 import datetime
 import os
 import json
@@ -28,6 +29,11 @@ def show_events_view(request):
     eventbrite = Eventbrite(eventtoken)
     my_id = eventbrite.get_user()['id']
     events = eventbrite.event_search(**{'user.id': my_id})
+    venue_id = '36600409'
+    venue_location = eventbrite.get('/venues/{venue_id}'.format(venue_id=venue_id))
+    venue_name=(venue_location['name'])
+    print(venue_name)
+
     existing_events = Event.objects.all().values("event_id")
     events_list = []
     for i in existing_events:
@@ -42,6 +48,7 @@ def show_events_view(request):
             start_time=parse_datetime(x['start']['local'])
             api_url=(x['url'])
             event_id=(x['id'])
+            venue_id=(x['venue_id'])
             event_url=(x['url'])
             title=(x['name']['html'])
             name_code = title[4:7].lower()
@@ -55,6 +62,7 @@ def show_events_view(request):
             else:
                 code = "other"
             print(event_id)
+            print("this is the venue id"+ venue_id)
 
             print(start_time)
             new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code, event_id=event_id)
