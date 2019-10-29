@@ -66,7 +66,7 @@ def show_events_view(request):
             print("this is the venue id"+" "+venue_location)
 
             print(start_time)
-            new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code, event_id=event_id)
+            new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code, event_id=event_id, venue_id=venue_id, venue_location=venue_location)
             print(new_event)
             new_event.save()
 
