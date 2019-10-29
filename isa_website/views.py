@@ -48,6 +48,7 @@ def show_events_view(request):
             api_url=(x['url'])
             event_id=(x['id'])
             venue_id=(x['venue_id'])
+            venue_location = (eventbrite.get('/venues/{venue_id}'.format(venue_id=venue_id))['name'])
             event_url=(x['url'])
             title=(x['name']['html'])
             name_code = title[4:7].lower()
@@ -61,7 +62,8 @@ def show_events_view(request):
             else:
                 code = "other"
             print(event_id)
-            print("this is the venue id"+ venue_id)
+            print("this is the venue id"+" "+venue_id)
+            print("this is the venue id"+" "+venue_location)
 
             print(start_time)
             new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code, event_id=event_id)
