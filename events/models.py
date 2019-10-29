@@ -12,13 +12,17 @@ class Event(models.Model):
     event_url = models.CharField(max_length=255, blank=True)
     title = models.CharField(max_length=255, blank=True)
     event_id = models.CharField(max_length=255, blank=True)
+    venue_id = models.CharField(max_length=255, blank=True)
+    venue_location = models.CharField(max_length=255, blank=True)
 
     panels = [
 
         FieldPanel('api_url'),
         FieldPanel('event_start'),
         FieldPanel('event_code'),
-        FieldPanel('title')
+        FieldPanel('title'),
+        FieldPanel('venue_location')
+
 
 
     ]
