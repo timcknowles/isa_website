@@ -128,9 +128,42 @@
               {% block content %}{% endblock %}
               {% block event %}{% endblock %}
 
+              {% if posts.paginator.num_pages > 1 %}
+
+                <nav aria-label="Page navigation example">
+
+                  <ul class="pagination justify-content-center">
+                    {% if posts.has_previous %}
+                    <li class="page-item">
+                      <a href="?page={{ posts.previous_page_number }}" class="page-link">
+                        <span>&laquo;</span>
+                      </a>
+                    </li>
+                    {% endif %}
+
+                    {% for page_num in posts.paginator.page_range %}
+                    <li class="page-item {% if page_num == posts.number %} active{% endif %}">
+                      <a href="?page={{ page_num }}" class="page-link">
+                        {{ page_num }}
+                      </a>
+                    </li>
+                    {% endfor %}
+
+                    {% if posts.has_next %}
+                    <li class="page-item">
+                      <a href="?page={{ posts.next_page_number }}" class="page-link">
+                        <span>&raquo;</span>
+                      </a>
+                    </li>
+                    {% endif %}
+                  </ul>
+
+                </nav>
+              {% endif %}
 
 
-            </div>
+
+              </div>
         </main>
 
 
@@ -141,38 +174,7 @@
                     <span>
                         <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
                         <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
-                        {% if posts.paginator.num_pages > 5 %}
 
-                          <nav aria-label="Page navigation example">
-
-                            <ul class="pagination justify-content-center">
-                              {% if posts.has_previous %}
-                              <li class="page-item">
-                                <a href="?page={{ posts.previous_page_number }}" class="page-link">
-                                  <span>&laquo;</span>
-                                </a>
-                              </li>
-                              {% endif %}
-
-                              {% for page_num in posts.paginator.page_range %}
-                              <li class="page-item {% if page_num == posts.number %} active{% endif %}">
-                                <a href="?page={{ page_num }}" class="page-link">
-                                  {{ page_num }}
-                                </a>
-                              </li>
-                              {% endfor %}
-
-                              {% if posts.has_next %}
-                              <li class="page-item">
-                                <a href="?page={{ posts.next_page_number }}" class="page-link">
-                                  <span>&raquo;</span>
-                                </a>
-                              </li>
-                              {% endif %}
-                            </ul>
-
-                          </nav>
-                        {% endif %}
 
                     </span>
                 </div>

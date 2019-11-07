@@ -3,6 +3,8 @@ from django.db import models
 from django import forms
 from django.shortcuts import render
 from django.template.response import TemplateResponse
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
@@ -75,6 +77,29 @@ class NewsIndexPage(RoutablePageMixin, Page):
         context['posts'] = NewsPage.objects.descendant_of(
             self).live().order_by('-first_published_at')
         context["categories"] = Category.objects.all()
+        child_pages = NewsPage.objects.descendant_of(
+            self).live().order_by('-first_published_at')
+
+        paginator = Paginator(child_pages, 4)
+        # Try to get the ?page=x value
+        page = request.GET.get("page")
+        try:
+            # If the page exists and the ?page=x is an int
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            # If the ?page=x is not an int; show the first page
+            posts = paginator.page(1)
+        except EmptyPage:
+            # If the ?page=x is out of range (too high most likely)
+            # Then return the last page
+            posts = paginator.page(paginator.num_pages)
+
+        # "posts" will have child pages; you'll need to use .specific in the template
+        # in order to access child properties, such as youtube_video_id and subtitle
+        context["posts"] = posts
+
+
+
         return context
 
 
@@ -108,6 +133,27 @@ class NewsIndexPage(RoutablePageMixin, Page):
     def post_by_category(self, request, category, *args, **kwargs):
         context = self.get_context(request, *args, **kwargs)
         posts = NewsPage.objects.live().public().filter(categories__slug__in=[category])
+
+        child_pages = posts
+
+        paginator = Paginator(child_pages, 2)
+        # Try to get the ?page=x value
+        page = request.GET.get("page")
+        try:
+            # If the page exists and the ?page=x is an int
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            # If the ?page=x is not an int; show the first page
+            posts = paginator.page(1)
+        except EmptyPage:
+            # If the ?page=x is out of range (too high most likely)
+            # Then return the last page
+            posts = paginator.page(paginator.num_pages)
+
+        # "posts" will have child pages; you'll need to use .specific in the template
+        # in order to access child properties, such as youtube_video_id and subtitle
+
+
         # context['newspages'] = newspages
         context["posts"] = posts
         context["search_term"] = category
