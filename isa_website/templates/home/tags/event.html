@@ -1,5 +1,90 @@
 <div class="container">
-  <div id="accordion">
+  <div class="card card-tabs-2">
+             <div class="card-header">
+                 <ul class="nav nav-tabs">
+                     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-4" role="tab">Core</a></li>
+                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-5" role="tab">Intermediate</a></li>
+                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-6" role="tab">Higher</a></li>
+                 </ul>
+             </div>
+             <div class="card-block">
+                 <div class="tab-content">
+                     <div class="tab-pane active" id="tab-4">
+                         <table class="table">
+                           <thead>
+                             <tr>
+                               <th scope="col">Theme</th>
+                               <th scope="col">Date</th>
+                               <th scope="col">Link</th>
+                               <th scope="col">Location</th>
+                             </tr>
+                           </thead>
+                         {% for event in event %}
+                           <tbody>
+                             <tr>
+                               {% if event.event_code == "core" %}
+                               <td>{{ event.title }}</td>
+                               <td>{{event.event_start|date:"jS M Y H:i "}}</td>
+                               <td><a href='{{event.event_url}}'>Eventbrite Link</a></td>
+                               <td>{{ event.venue_location }}</td>
+                               {% endif %}
+                             </tr>
+                           </tbody>
+                         {% endfor %}
+                         </table>
+                     </div>
+                     <div class="tab-pane" id="tab-5">
+                       <table class="table">
+                         <thead>
+                           <tr>
+                             <th scope="col">Theme</th>
+                             <th scope="col">Date</th>
+                             <th scope="col">Link</th>
+                             <th scope="col">Location</th>
+                           </tr>
+                         </thead>
+                       {% for event in event %}
+                         <tbody>
+                           <tr>
+                             {% if event.event_code == "inter" %}
+                             <td>{{ event.title }}</td>
+                             <td>{{event.event_start|date:"jS M Y H:i "}}</td>
+                             <td><a href='{{event.event_url}}'>Eventbrite Link</a></td>
+                             <td>{{ event.venue_location }}</td>
+                             {% endif %}
+                           </tr>
+                         </tbody>
+                       {% endfor %}
+                       </table>
+                     </div>
+                     <div class="tab-pane" id="tab-6">
+                       <table class="table">
+                         <thead>
+                           <tr>
+                             <th scope="col">Theme</th>
+                             <th scope="col">Date</th>
+                             <th scope="col">Link</th>
+                             <th scope="col">Location</th>
+                           </tr>
+                         </thead>
+                       {% for event in event %}
+                         <tbody>
+                           <tr>
+                             {% if event.event_code == "higher" %}
+                             <td>{{ event.title }}</td>
+                             <td>{{event.event_start|date:"jS M Y H:i "}}</td>
+                             <td><a href='{{event.event_url}}'>Eventbrite Link</a></td>
+                             <td>{{ event.venue_location }}</td>
+                             {% endif %}
+                           </tr>
+                         </tbody>
+                       {% endfor %}
+                       </table>
+                     </div>
+                 </div>
+             </div>
+         </div>
+  <!-- <div id="accordion">
     <div class="card">
       <div class="card-header" id="headingOne">
         <h5 class="mb-0">
@@ -10,21 +95,28 @@
       </div>
 
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-        <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Theme</th>
+              <th scope="col">Date</th>
+              <th scope="col">Link</th>
+              <th scope="col">Location</th>
+            </tr>
+          </thead>
         {% for event in event %}
-          <div class="row">
-
-            <!-- <div class="col-lg-6"> -->
+          <tbody>
+            <tr>
               {% if event.event_code == "core" %}
-              <div class="col">{{ event.title }}</div>
-              <div class="col">{{event.event_start|date:"jS M Y H:i "}}</div>
-              <div class="col"><a href='{{event.event_url}}'>Eventbrite Link</a></div>
-              <div class="col">{{ event.venue_location }}</div>
+              <td>{{ event.title }}</td>
+              <td>{{event.event_start|date:"jS M Y H:i "}}</td>
+              <td><a href='{{event.event_url}}'>Eventbrite Link</a></td>
+              <td>{{ event.venue_location }}</td>
               {% endif %}
-            <!-- </div> -->
-          </div>
+            </tr>
+          </tbody>
         {% endfor %}
-        </div>
+        </table>
       </div>
     </div>
     <div class="card">
@@ -36,21 +128,32 @@
         </h5>
       </div>
       <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
-        <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Theme</th>
+              <th scope="col">Date</th>
+              <th scope="col">Link</th>
+              <th scope="col">Location</th>
+            </tr>
+          </thead>
         {% for event in event %}
-          <div class="row">
+          <tbody>
+            <tr>
 
-            <!-- <div class="col-lg-6"> -->
+
+            <
               {% if event.event_code == "inter" %}
-              <div class="col">{{ event.title }}</div>
-              <div class="col">{{event.event_start|date:"jS M Y H:i "}}</div>
-              <div class="col"><a href='{{event.event_url}}'>Eventbrite Link</a></div>
-              <div class="col">{{ event.venue_location }}</div>
+              <td>{{ event.title }}</td>
+              <td>{{event.event_start|date:"jS M Y H:i "}}</td>
+              <td><a href='{{event.event_url}}'>Eventbrite Link</a></td>
+              <td>{{ event.venue_location }}</td>
               {% endif %}
-            <!-- </div> -->
-          </div>
+            </tr>
+
+          </tbody>
         {% endfor %}
-        </div>
+        </table>
       </div>
     </div>
     <div class="card">
@@ -66,17 +169,17 @@
         {% for event in event %}
           <div class="row">
 
-            <!-- <div class="col-lg-6"> -->
+
               {% if event.event_code == "higher" %}
               <div class="col">{{ event.title }}</div>
               <div class="col">{{event.event_start|date:"jS M Y H:i "}}</div>
               <div class="col"><a href='{{event.event_url}}'>Eventbrite Link</a></div>
               <div class="col">{{ event.venue_location }}</div>
               {% endif %}
-            <!-- </div> -->
+
           </div>
         {% endfor %}
         </div>
     </div>
-  </div>
+  </div> -->
 </div>
