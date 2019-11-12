@@ -14,8 +14,8 @@ class CertificateAdmin(ModelAdmin):
     menu_order = 290
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = ("name", "name",)
-    search_fields = ("email", "full_name",)
+    list_display = ("attendee_name", "email_address", "attended", "feedback_complete", "event_id")
+    # search_fields = ("email", "full_name",)
 
 
 

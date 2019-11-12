@@ -16,6 +16,7 @@ from eventbrite import Eventbrite
 
 # from home.models import Event
 from events.models import Event
+from certificates.models import Certificate
 from events import attendee; l = attendee.data
 
 
@@ -30,6 +31,7 @@ def show_events_view(request):
     try:
         eventbrite = Eventbrite(eventtoken)
         my_id = eventbrite.get_user()['id']
+
         events = eventbrite.event_search(**{'user.id': my_id})
         venue_id = '36600409'
         venue_location = (eventbrite.get('/venues/{venue_id}'.format(venue_id=venue_id))['name'])
@@ -72,8 +74,9 @@ def show_events_view(request):
                 new_event = Event(api_url=api_url, event_start=start_time, title=title, event_url=api_url, event_code=code, event_id=event_id, venue_id=venue_id, venue_location=venue_location)
                 print(new_event)
                 new_event.save()
-    except:
-        pass
+    except Exception as e:
+            print(e)
+            pass
 
     core_events = Event.objects.all().filter(event_code="core")
     int_events = Event.objects.all().filter(event_code="inter")
@@ -87,6 +90,7 @@ def show_events_view(request):
         "intermediates": int_events,
         "higher_events": higher_events,
         "other_events": other_events,
+        "event": event
 
     }
 
@@ -101,16 +105,30 @@ def show_attendee_view(request):
         for x in existing_events:
             event_id=(x['event_id'])
             event_title=(x['title'])
-            print(event_title)
+            event_instance = Event.objects.get(event_id=event_id)
+            # print(event_title)
 
         # event_id = 70113145305
             get_attendees = eventbrite.get('/events/{event_id}/attendees'.format(event_id=event_id))
             attendees = get_attendees
             for i in get_attendees["attendees"]:
-                print(i["profile"]["name"])
-                print(i["profile"]["email"])
-                print(i["status"])
-                print(i["checked_in"])
+                attendee_name=(i["profile"]["name"])
+                # print(attendee_name)
+                email_address=(i["profile"]["email"])
+                # print(email_address)
+                status=(i["status"])
+                # print(status)
+                attended=(i["checked_in"])
+                # print(attended)
+
+                # print(new_certificate)
+                try:
+                    new_certificate = Certificate(attendee_name=attendee_name, email_address=email_address, attended=attended, event_id=event_instance)
+                    # print(new_certificate)
+                    new_certificate.save()
+                except Exception as e:
+                    print(e)
+
             # print(i["profile"]["status"])
 
         # print(attendees)
