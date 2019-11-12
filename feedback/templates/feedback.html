@@ -1,5 +1,77 @@
-<form action="/your-name/" method="post">
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/give_feedback/{{event}}/" method="post">
     {% csrf_token %}
-    {{ form }}
+        <h4>{{form.eventid}}</h4>
+        <b>{{form.name}}</b>
+        <hr>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6" style="background: lightblue; padding: 10px">
+                    <b>1</b>
+                    <b>Talk title:</b>
+                    {{form.talk_1}}
+                    <br>
+                    <b>I found this talk useful:</b>
+                    {{form.useful_1}}
+                </div> 
+                <div class="col-md-6" style="background: lightyellow; padding: 10px">
+                    <b>2</b>
+                    <b>Talk title:</b>
+                    {{form.talk_2}}
+                    <br>
+                    <b>I found this talk useful:</b>
+                    {{form.useful_2}}
+                </div> 
+            </div>
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6" style="background: lightsalmon; padding: 10px">
+                    <b>3</b>
+                    <b>Talk title:</b>
+                    {{form.talk_3}}
+                    <br>
+                    <b>I found this talk useful:</b>
+                    {{form.useful_3}}
+                </div> 
+                <div class="col-md-6">
+                    <b>4</b>
+                    <b>Talk title:</b>
+                    {{form.talk_4}}
+                    <br>
+                    <b>I found this talk useful:</b>
+                    {{form.useful_4}}
+                </div> 
+            </div>
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6" style="background: lightgreen; padding: 10px">
+                    <b>0</b>
+                    <b>Talk title:</b>
+                    {{form.talk_0}}
+                    <br>
+                    <b>I found this talk useful:</b>
+                    {{form.useful_0}}
+                </div> 
+                <div class="col-md-6" style="background: lightseagreen; padding: 10px">
+                    <b>5</b>
+                    <b>Talk title:</b>
+                    {{form.talk_5}}
+                    <br>
+                    <b>I found this talk useful:</b>
+                    {{form.useful_5}}
+                </div> 
+            </div>
+        </div>
+
+    
     <input type="submit" value="Submit">
 </form>
+
+{% endblock %}

@@ -2,12 +2,12 @@ from django.db import models
 from events.models import Event
 
 FEEDBACK_CHOICES = [
-    "N/A",
-    "STRONGLY AGREE",
-    "AGREE",
-    "NEUTRAL",
-    "DISAGREE",
-    "STRONGLY DISAGREE",
+    ("NA", 'N/A'),
+    ("SA", "STRONGLY AGREE"),
+    ("AA", "AGREE"),
+    ("NN", "NEUTRAL"),
+    ("DD", "DISAGREE"),
+    ("SD", "STRONGLY DISAGREE")
 ]
 
 # Create your models here.
@@ -18,6 +18,8 @@ class Feedback(models.Model):
     
 for i in range(6):
         Feedback.add_to_class(f"talk_{i}", models.CharField(max_length=128))
+        Feedback.add_to_class(f"useful_{i}", models.CharField(max_length=2, choices=FEEDBACK_CHOICES, default="NA"))
+
         # self.fields[f"talk_{i}"] = models.CharField()
         # self.fields[f"useful_{i}"] = models.CharField(choices=FEEDBACK_CHOICES)
         # self.fields[f"relevant_{i}"] = models.CharField(choices=FEEDBACK_CHOICES)

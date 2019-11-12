@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.urls import path 
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -26,7 +27,8 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.admin_approval.urls')),
 
     url(r'^eventbrite/$', views.eventbrite, name='eventbrite'),
-    url(r'^give_feedback/', feedback_views.give_feedback),
+    path('give_feedback/<int:event>/', feedback_views.give_feedback),
+    path('view_feedback/<int:event>/', feedback_views.ViewEventFeedback),
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
