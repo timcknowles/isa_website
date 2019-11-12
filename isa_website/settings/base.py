@@ -63,7 +63,8 @@ INSTALLED_APPS = [
     'course',
     'events',
     'news',
-    'surveys'
+    'surveys',
+    'feedback',
 
 ]
 

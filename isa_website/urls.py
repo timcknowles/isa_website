@@ -8,6 +8,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
 from events import views as event_views
+from feedback import views as feedback_views
 from . import views
 
 urlpatterns = [
@@ -25,7 +26,7 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.admin_approval.urls')),
 
     url(r'^eventbrite/$', views.eventbrite, name='eventbrite'),
-
+    url(r'^give_feedback/', feedback_views.give_feedback),
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
