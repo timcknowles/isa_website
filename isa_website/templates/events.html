@@ -5,124 +5,90 @@
 {% block body_class %}template-coursepage{% endblock %}
 
 {% block content %}
-<h1>ISA events v1</h1>
-
-<div class="col-md-8">
-  <div class="card">
-    <div class="card-header">
-      <b>Core Training</b>
-    </div>
-    <ul class="list-group list-group-flush">
-      {% if coreevents%}
-        {% for event in coreevents %}
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-md-7">
-              {{event.title}}
-            </div>
-            <div class="col-md-3">
-              {{event.event_start|date:"jS M Y H:i "}}
-            </div>
-            <div class="col-md-2">
-              <a href='{{event.event_url}}'>Link</a>
-            </div>
-          </div>
-        </li>
-        {% endfor %}
-      {% else %}
-        <li class="list-group-item">
-          No events found
-        </li>
-      {% endif %}
-    </ul>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <b>Intermediate Training</b>
-    </div>
-    <ul class="list-group list-group-flush">
-      {% if intermediates %}
-        {% for event in intermediates %}
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-md-7">
-              {{event.title}}
-            </div>
-            <div class="col-md-3">
-              {{event.event_start|date:"jS M Y H:i "}}
-            </div>
-            <div class="col-md-2">
-              <a href='{{event.event_url}}'>Link</a>
-            </div>
-          </div>
-        </li>
-        {% endfor %}
-      {% else %}
-        <li class="list-group-item">
-          No events found
-        </li>
-      {% endif %}
-    </ul>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <b>Higher Training</b>
-    </div>
-    <ul class="list-group list-group-flush">
-      {% if higher_events %}
-        {% for event in higher_events %}
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-md-7">
-              {{event.title}}
-            </div>
-            <div class="col-md-3">
-              {{event.event_start|date:"jS M Y H:i "}}
-            </div>
-            <div class="col-md-2">
-              <a href='{{event.event_url}}'>Link</a>
-            </div>
-          </div>
-        </li>
-        {% endfor %}
-      {% else %}
-        <li class="list-group-item">
-          No events found
-        </li>
-      {% endif %}
-    </ul>
-  </div>
-
-
-  <div class="card">
-    <div class="card-header">
-      <b>Other Events</b>
-    </div>
-    <ul class="list-group list-group-flush">
-      {% if other_events %}
-        {% for event in other_events %}
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-md-7">
-              {{event.title}}
-            </div>
-            <div class="col-md-3">
-              {{event.event_start|date:"jS M Y H:i "}}
-            </div>
-            <div class="col-md-2">
-              <a href='{{event.event_url}}'>Link</a>
-            </div>
-          </div>
-        </li>
-        {% endfor %}
-      {% else %}
-        <li class="list-group-item">
-          No events found
-        </li>
-      {% endif %}
-    </ul>
-  </div>
-</div>
+<div class="container">
+  <div class="card card-tabs-2">
+             <div class="card-header">
+                 <ul class="nav nav-tabs">
+                     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-4" role="tab">Core</a></li>
+                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-5" role="tab">Intermediate</a></li>
+                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-6" role="tab">Higher</a></li>
+                 </ul>
+             </div>
+             <div class="card-block">
+                 <div class="tab-content">
+                     <div class="tab-pane active" id="tab-4">
+                         <table class="table">
+                           <thead>
+                             <tr>
+                               <th scope="col">Theme</th>
+                               <th scope="col">Date</th>
+                               <th scope="col">Link</th>
+                               <th scope="col">Location</th>
+                             </tr>
+                           </thead>
+                         {% for event in event %}
+                           <tbody>
+                             <tr>
+                               {% if event.event_code == "core" %}
+                               <td>{{ event.title }}</td>
+                               <td>{{event.event_start|date:"jS M Y H:i "}}</td>
+                               <td><a href='{{event.event_url}}'>Eventbrite Link</a></td>
+                               <td>{{ event.venue_location }}</td>
+                               {% endif %}
+                             </tr>
+                           </tbody>
+                         {% endfor %}
+                         </table>
+                     </div>
+                     <div class="tab-pane" id="tab-5">
+                       <table class="table">
+                         <thead>
+                           <tr>
+                             <th scope="col">Theme</th>
+                             <th scope="col">Date</th>
+                             <th scope="col">Link</th>
+                             <th scope="col">Location</th>
+                           </tr>
+                         </thead>
+                       {% for event in event %}
+                         <tbody>
+                           <tr>
+                             {% if event.event_code == "inter" %}
+                             <td>{{ event.title }}</td>
+                             <td>{{event.event_start|date:"jS M Y H:i "}}</td>
+                             <td><a href='{{event.event_url}}'>Eventbrite Link</a></td>
+                             <td>{{ event.venue_location }}</td>
+                             {% endif %}
+                           </tr>
+                         </tbody>
+                       {% endfor %}
+                       </table>
+                     </div>
+                     <div class="tab-pane" id="tab-6">
+                       <table class="table">
+                         <thead>
+                           <tr>
+                             <th scope="col">Theme</th>
+                             <th scope="col">Date</th>
+                             <th scope="col">Link</th>
+                             <th scope="col">Location</th>
+                           </tr>
+                         </thead>
+                       {% for event in event %}
+                         <tbody>
+                           <tr>
+                             {% if event.event_code == "higher" %}
+                             <td>{{ event.title }}</td>
+                             <td>{{event.event_start|date:"jS M Y H:i "}}</td>
+                             <td><a href='{{event.event_url}}'>Eventbrite Link</a></td>
+                             <td>{{ event.venue_location }}</td>
+                             {% endif %}
+                           </tr>
+                         </tbody>
+                       {% endfor %}
+                       </table>
+                     </div>
+                 </div>
+             </div>
+         </div>
 {% endblock %}

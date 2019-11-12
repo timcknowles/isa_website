@@ -18,9 +18,11 @@ urlpatterns = [
 
     url(r'^search/$', search_views.search, name='search'),
     #events page
-    url(r'^events/', views.event_view),
+    url(r'^events/', views.show_events_view),
 
-    url(r'^showevents/', views.show_events_view),
+    # url(r'^showevents/', views.show_events_view),
+
+    url(r'^attendee/', views.show_attendee_view),
 
     url(r'^accounts/', include('registration.backends.admin_approval.urls')),
 
