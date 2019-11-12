@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^search/$', search_views.search, name='search'),
     #events page
     url(r'^events/', views.show_events_view),
+    url(r'^certificates/', views.generate_pdf_view),
 
     # url(r'^showevents/', views.show_events_view),
 

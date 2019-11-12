@@ -10,6 +10,10 @@ from django.utils.dateparse import parse_datetime
 from django.db import IntegrityError
 from django.shortcuts import render_to_response
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic import View
+from xhtml2pdf import pisa
+from io import BytesIO
+from django.template.loader import get_template
 
 
 from eventbrite import Eventbrite
@@ -25,6 +29,19 @@ eventtoken = os.environ.get('EVENTBRITE_TOKEN')
 
 #reader to decode the Http
 reader = codecs.getreader("utf-8")
+
+
+
+def generate_pdf_view(request):
+    template = get_template("hello.html")
+    context = {
+    'pagesize': 'A4'
+    }
+    html = template.render(context)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+
+    return HttpResponse(result.getvalue(), content_type = 'application/pdf')
 
 
 def show_events_view(request):
