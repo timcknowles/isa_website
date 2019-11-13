@@ -33,5 +33,6 @@ def ViewAttendance(request):
 
     else:
         email = EmailForm()
+        attendence_record = {}
 
     return render(request, "certificates.html", {"form": email, "attendance": attendence_record})

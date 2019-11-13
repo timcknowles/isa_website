@@ -7,9 +7,12 @@
     <input type="submit" value="Submit">
 </form>
 <div>
+    {% load static %}
     {% for event_obj in attendance %}
+    <hr>
         <div class="col-md-12 row" >
-            <div class="col-md-3">
+            
+            <div class="col-md-2">
                 {{ event_obj.event_id.event_start}}
             </div>
             <div class="col-md-7">
@@ -17,18 +20,25 @@
             </div>
             <div class="col-md-1">
                 {% if event_obj.attended %}
-                    <span style="background: lime">test</span>
+                    <img src="{% static '/images/checked.png' %}" style="width: 100%">
                 {% else %}
-                    <span style="background: red">test</span>
+                    <img src="{% static '/images/cancel.png' %}" style="width: 100%">
                 {% endif %}
             </div>
             <div class="col-md-1">
                 {% if event_obj.feedback_complete %}
-                    <span style="background: lime; height: 100%">test</span>
+                    <img src="{% static '/images/checked.png' %}" style="width: 100%">
                 {% else %}
-                    <span style="background: red; height: 100%">test</span>
+                    <img src="{% static '/images/cancel.png' %}" style="width: 100%">
                 {% endif %}
             </div>
+            <div class="col-md-1">
+                {% if event_obj.feedback_complete and event_obj.attended %}
+                <!-- add in a link to the generate form function -->
+                    <img src="{% static '/images/winner.png' %}" style="width: 100%">
+                {% endif %}
+            </div>
+            
             
         </div>
     {% endfor %}
