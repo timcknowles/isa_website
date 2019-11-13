@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('certificates', '0002_auto_20191112_1727'),
+        ("certificates", "0002_auto_20191112_1727"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='certificate',
-            name='feedback_complete',
+            model_name="certificate",
+            name="feedback_complete",
             field=models.BooleanField(blank=True, default=False, max_length=255),
         ),
     ]

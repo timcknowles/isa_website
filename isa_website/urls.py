@@ -8,6 +8,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
 from events import views as event_views
+from certificates import views as cert_views
 from . import views
 
 urlpatterns = [
@@ -20,6 +21,7 @@ urlpatterns = [
     #events page
     url(r'^events/', views.show_events_view),
     url(r'^certificates/', views.generate_pdf_view),
+    url(r'^view_attendance/', cert_views.ViewAttendance),
 
     # url(r'^showevents/', views.show_events_view),
 
