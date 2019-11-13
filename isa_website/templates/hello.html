@@ -4,7 +4,20 @@
 <head>
 <title>Page Title</title>
 <style>
+    @page {
+        size: letter portrait;
+        background-color: red;
+        border-bottom-color: red;
+        @frame content_frame {
+            left: 50pt;
+            width: 512pt;
+            top: 50pt;
+            height: 692pt;
+            border-bottom-color: red;
 
+            -pdf-frame-border: 1;    /* for debugging the layout */
+        }
+    }
 </style>
 
 </head>
