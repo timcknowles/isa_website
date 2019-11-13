@@ -1,29 +1,56 @@
 
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>Page Title</title>
-<style>
-    @page {
-        size: letter portrait;
-        background-color: red;
-        border-bottom-color: red;
-        @frame content_frame {
-            left: 50pt;
-            width: 512pt;
-            top: 50pt;
-            height: 692pt;
-            border-bottom-color: red;
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
 
-            -pdf-frame-border: 1;    /* for debugging the layout */
-        }
-    }
+@page {
+		size: a4 landscape;
+		background-image: url('/Users/tim/Devel/isa_website/isa_website/static/bootstrap/img/Anaesthetist-Doctors.jpg');
+		background-color: #7A6884;
+		@frame content_frame {
+				left: 50pt;
+				width: 742pt;
+				top: 50pt;
+				height: 495pt;
+				border-bottom-color: #7A6884;
+				color: #7A6884;
+				background-color: coral;
+
+
+				-pdf-frame-border: 1;    /* for debugging the layout */
+		}
+}
+
+
+
+.example {
+	font-size: 14px;
+	font-weight: bold;
+	color: #669933;
+	text-decoration: underline;
+	background-color: coral;
+	text-align: center;
+
+}
+body {
+  background-color: white;
+	height: 100px;
+}
+
 </style>
-
 </head>
 <body>
+	<h1 style="text-align: center">Certificates </h1>
 
-<h1>HELLO WORLD</h1>
+			 {% for certificate in certificates %}
+					 <tr>
+							 <td>{{ certificate.attendee_name }}</td>
+					 </tr>
+			 {% endfor %}
+	 
 
 </body>
 </html>

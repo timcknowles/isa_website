@@ -35,7 +35,8 @@ reader = codecs.getreader("utf-8")
 def generate_pdf_view(request):
     template = get_template("hello.html")
     context = {
-    'pagesize': 'A4'
+    'certificates': Certificate.objects.all()
+
     }
     html = template.render(context)
     result = BytesIO()
