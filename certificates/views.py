@@ -27,12 +27,11 @@ def ViewAttendance(request):
         email = EmailForm(request.POST)
         if email.is_valid():
             # make a database query and return the data
-            print(email.cleaned_data["email"])
             attendence_record = Certificate.objects.filter(
                 email_address=email.cleaned_data["email"]
-            )
+            ).order_by('event_id_id')
 
     else:
         email = EmailForm()
 
-    return render(request, "certificates.html", {"form": email})
+    return render(request, "certificates.html", {"form": email, "attendance": attendence_record})
