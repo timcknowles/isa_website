@@ -19,8 +19,8 @@ class CertificateAdmin(ModelAdmin):
         "email_address",
         "attended",
         "feedback_complete",
-        "event_id",
-        'certificate_link'
+        "event_id"
+        # 'certificate_link'
 
     )
 
