@@ -44,6 +44,14 @@ def generate_pdf_view(request):
 
     return HttpResponse(result.getvalue(), content_type = 'application/pdf')
 
+def cert_detail_view(self, request, primary_key):
+    try:
+        certificate = Certificate.objects.get(pk=certificate_pk)
+    except Certificate.DoesNotExist:
+        raise Http404('Book does not exist')
+
+    return render(request, 'catalog/cert_detail.html', context={'certificate': certificate})
+
 
 def show_events_view(request):
     try:

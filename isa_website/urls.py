@@ -22,6 +22,8 @@ urlpatterns = [
     #events page
     url(r'^events/', views.show_events_view),
     url(r'^certificates/', views.generate_pdf_view),
+    url(r'^cert/(?P<pk>[0-9]+)$/', views.cert_detail_view),
+
     url(r'^view_attendance/', cert_views.ViewAttendance),
 
     # url(r'^showevents/', views.show_events_view),
