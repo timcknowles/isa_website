@@ -3,6 +3,7 @@ from wagtail.contrib.modeladmin.options import (
     modeladmin_register,
 )
 from .models import Certificate
+from django.utils.html import format_html
 
 
 class CertificateAdmin(ModelAdmin):
@@ -19,11 +20,15 @@ class CertificateAdmin(ModelAdmin):
         "email_address",
         "attended",
         "feedback_complete",
-        "event_id"
+        "event_id",
+        "certificate_link"
         # 'certificate_link'
 
     )
 
+
+    def certificate_link(self, obj):
+        return format_html('<a href="/certificates">certificate</a>') 
 
 
 
