@@ -10,7 +10,7 @@ class CertificateAdmin(ModelAdmin):
 
     model = Certificate
     menu_label = "Certificates"
-    menu_icon = "placeholder"
+    menu_icon = "doc-full-inverse"
     menu_order = 290
     add_to_settings_menu = False
     exclude_from_explorer = False
@@ -20,7 +20,14 @@ class CertificateAdmin(ModelAdmin):
         "attended",
         "feedback_complete",
         "event_id",
+        # "certificate_link",
     )
+
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        # Only show people managed by the current user
+        return qs.filter(email_address=request.user.email)
     # search_fields = ("email", "full_name",)
 
 
