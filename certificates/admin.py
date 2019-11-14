@@ -20,8 +20,13 @@ class CertificateAdmin(ModelAdmin):
         "attended",
         "feedback_complete",
         "event_id",
-        # "certificate_link",
+        'certificate_link'
+
     )
+
+
+
+
 
 
     def get_queryset(self, request):
