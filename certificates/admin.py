@@ -15,6 +15,13 @@ class CertificateAdmin(ModelAdmin):
     menu_order = 290
     add_to_settings_menu = False
     exclude_from_explorer = False
+    list_filter = ('event_id',)
+    inspect_view_enabled=True
+    search_fields = (
+        "attendee_name",
+        "email_address"
+
+    )
     list_display = (
         "attendee_name",
         "email_address",
@@ -28,16 +35,16 @@ class CertificateAdmin(ModelAdmin):
 
 
     def certificate_link(self, obj):
-        return format_html('<a href="/certificates">certificate</a>') 
+        return format_html('<a href="/certificates">certificate</a>')
 
 
 
 
 
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        # Only show people managed by the current user
-        return qs.filter(email_address=request.user.email)
+    # def get_queryset(self, request):
+    #     qs = super().get_queryset(request)
+    #     # Only show people managed by the current user
+    #     return qs.filter(email_address=request.user.email)
     # search_fields = ("email", "full_name",)
 
 
