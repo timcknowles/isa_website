@@ -18,7 +18,7 @@ django-storages==1.6.6
 django-taggit<0.24,>=0.23
 django-toolbelt==0.0.1
 django-treebeard==4.3
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 docutils==0.14
 draftjs-exporter<3.0,>=2.1.5
 eventbrite==3.3.3
